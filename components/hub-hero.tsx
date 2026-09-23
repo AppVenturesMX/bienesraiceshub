@@ -7,24 +7,37 @@ import { SITE_TAGLINE } from "@/lib/site"
 import { getHeroMosaicImages } from "@/lib/properties"
 
 export function HubHero() {
-  const mosaic = getHeroMosaicImages(12)
+  const mosaic = getHeroMosaicImages(8)
 
   return (
     <section className="relative isolate overflow-hidden bg-slate-950">
       {mosaic.length > 0 && (
         <div
-          className="absolute inset-0 grid grid-cols-3 gap-1 sm:grid-cols-4 lg:grid-cols-6"
+          className="absolute inset-0 grid grid-cols-2 gap-2 p-2 sm:grid-cols-3 lg:grid-cols-4"
           aria-hidden="true"
         >
           {mosaic.map((img, i) => (
-            <div key={i} className="aspect-square overflow-hidden">
-              <img src={img.src} alt="" className="h-full w-full object-cover grayscale" />
+            <div key={i} className="overflow-hidden rounded-2xl">
+              <motion.img
+                src={img.src}
+                alt=""
+                className="h-full w-full object-cover"
+                initial={{ scale: 1 }}
+                animate={{ scale: 1.08 }}
+                transition={{
+                  duration: 14,
+                  delay: i * 0.4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                }}
+              />
             </div>
           ))}
         </div>
       )}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-slate-950/85 via-slate-950/93 to-slate-950"
+        className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-950/70 to-slate-950/92"
         aria-hidden="true"
       />
 
