@@ -29,8 +29,8 @@ export function AboutStory() {
             rompecabezas con piezas que no hablan entre sí: el agente por un lado, el abogado por
             otro, el banco en otro correo y el arquitecto en otra llamada. Bienes Raíces Hub nació
             para cambiar eso — reunimos, bajo un mismo equipo, a profesionales de bienes raíces,
-            derecho, contabilidad, banca hipotecaria y diseño arquitectónico, todos coordinados en
-            cada expediente. No somos una sola persona haciendo de todo; somos un equipo de
+            derecho, servicios fiscales, banca hipotecaria y diseño arquitectónico, todos
+            coordinados en cada expediente. No somos una sola persona haciendo de todo; somos un equipo de
             especialistas que se pasan la estafeta sin que tú tengas que perseguir a nadie.
           </p>
         </Reveal>

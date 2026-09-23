@@ -42,9 +42,9 @@ export function AboutHero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="max-w-2xl text-pretty text-lg leading-relaxed text-slate-300"
         >
-          Somos especialistas en bienes raíces, derecho, contabilidad, banca hipotecaria y diseño
-          arquitectónico, con más de 25 años de experiencia combinada — trabajando coordinados para
-          que tu compra, venta o renta avance sin fricciones.
+          Somos especialistas en bienes raíces, derecho, servicios fiscales, banca hipotecaria y
+          diseño arquitectónico, con más de 25 años de experiencia combinada — trabajando
+          coordinados para que tu compra, venta o renta avance sin fricciones.
         </motion.p>
       </div>
     </section>

@@ -19,7 +19,7 @@ const especialidades = [
   },
   {
     icon: Calculator,
-    title: "Contabilidad y fiscal",
+    title: "Servicios fiscales",
     description: "Estructura fiscal clara para tu operación, sin sorpresas después de firmar.",
   },
   {
