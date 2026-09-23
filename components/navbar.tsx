@@ -44,12 +44,26 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
               </button>
             </>
           ) : (
-            <button
-              onClick={() => scrollTo("propiedades")}
-              className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
-            >
-              Propiedades
-            </button>
+            <>
+              <button
+                onClick={() => scrollTo("nosotros")}
+                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              >
+                Por qué nosotros
+              </button>
+              <button
+                onClick={() => scrollTo("propiedades")}
+                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              >
+                Propiedades
+              </button>
+              <button
+                onClick={() => scrollTo("como-funciona")}
+                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              >
+                Cómo funciona
+              </button>
+            </>
           )}
         </div>
 

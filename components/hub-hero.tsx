@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { ShieldCheck } from "lucide-react"
 import { WhatsAppIcon } from "./whatsapp-icon"
+import { SocMark } from "./soc-mark"
 import { GENERAL_WHATSAPP_URL, PREAPRUEBA_URL, SITE_NAME, SITE_TAGLINE } from "@/lib/site"
 
 const ctaClass =
@@ -52,6 +53,7 @@ export function HubHero() {
             Hablar con un asesor
           </a>
           <a href={PREAPRUEBA_URL} target="_blank" rel="noopener noreferrer" className={ctaClass}>
+            <SocMark className="h-6 w-auto" />
             Precalifícate gratis
           </a>
         </motion.div>
