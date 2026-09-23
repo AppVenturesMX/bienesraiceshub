@@ -13,7 +13,7 @@ import { SITE_NAME } from "@/lib/site"
 export const metadata: Metadata = {
   title: `Quiénes somos — ${SITE_NAME}`,
   description:
-    "Conoce al equipo detrás de Bienes Raíces Hub: especialistas en bienes raíces, derecho, contabilidad, banca hipotecaria y diseño arquitectónico, con más de 25 años de experiencia combinada.",
+    "Conoce al equipo detrás de Bienes Raíces Hub: especialistas en bienes raíces, derecho, servicios fiscales, banca hipotecaria y diseño arquitectónico, con más de 25 años de experiencia combinada.",
   openGraph: {
     title: `Quiénes somos — ${SITE_NAME}`,
     description:
