@@ -1,5 +1,8 @@
 import { Navbar } from "@/components/navbar"
 import { HubHero } from "@/components/hub-hero"
+import { HubWhyUs } from "@/components/hub-why-us"
+import { HubHowItWorks } from "@/components/hub-how-it-works"
+import { HubCtaBand } from "@/components/hub-cta-band"
 import { PropertyCard } from "@/components/property-card"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingButtons } from "@/components/floating-buttons"
@@ -11,6 +14,8 @@ export default function Page() {
       <Navbar mode="hub" />
       <main>
         <HubHero />
+
+        <HubWhyUs />
 
         <section id="propiedades" className="scroll-mt-20 bg-slate-50 py-20 sm:py-24">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -28,6 +33,10 @@ export default function Page() {
             </div>
           </div>
         </section>
+
+        <HubHowItWorks />
+
+        <HubCtaBand />
       </main>
       <SiteFooter />
       <FloatingButtons />
