@@ -4,9 +4,9 @@ import { Reveal } from "@/components/reveal"
 const razones = [
   {
     icon: UserCheck,
-    title: "Un asesor real, no un formulario",
+    title: "Un mismo asesor, de principio a fin",
     description:
-      "Hablas directo con la misma persona que conoce cada propiedad del directorio, de principio a fin.",
+      "Hablas directo con la misma persona que conoce cada propiedad del directorio, sin cambios de asesor en el camino.",
   },
   {
     icon: ShieldCheck,

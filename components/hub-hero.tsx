@@ -45,7 +45,7 @@ export function HubHero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
         >
-          Compra, vende o renta tu próxima propiedad con el respaldo de un asesor real.
+          Compra, vende o renta tu próxima propiedad con un mismo asesor, de principio a fin.
         </motion.h1>
 
         <motion.p
