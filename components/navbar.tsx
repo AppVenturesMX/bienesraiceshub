@@ -4,6 +4,7 @@ import Link from "next/link"
 import { HubMark } from "./hub-mark"
 import { WhatsAppIcon } from "./whatsapp-icon"
 import { GENERAL_WHATSAPP_URL, SITE_NAME } from "@/lib/site"
+import { brandFont } from "@/lib/fonts"
 
 type NavbarProps = {
   /** En una página de propiedad, ancla a sus propias secciones internas. En el home del Hub, enlaza a la sección de propiedades. */
@@ -21,10 +22,10 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
     <header className="absolute inset-x-0 top-0 z-40 w-full">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-2.5">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-emerald-950 sm:h-14 sm:w-14">
-            <HubMark className="h-8 w-8 sm:h-9 sm:w-9" />
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-emerald-950 sm:h-14 sm:w-14">
+            <HubMark className="h-6 w-6 sm:h-9 sm:w-9" />
           </span>
-          <span className="whitespace-nowrap text-base font-bold tracking-tight text-white sm:text-lg">
+          <span className={`${brandFont.className} whitespace-nowrap text-base tracking-tight text-white sm:text-2xl`}>
             {SITE_NAME}
           </span>
         </Link>

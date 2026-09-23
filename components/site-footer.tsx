@@ -1,5 +1,6 @@
 import { HubMark } from "./hub-mark"
 import { SITE_NAME } from "@/lib/site"
+import { brandFont } from "@/lib/fonts"
 
 type SiteFooterProps = {
   /** Disclaimer específico de la propiedad mostrada (precio, fotos, etc.). Se omite en el home del Hub. */
@@ -14,7 +15,7 @@ export function SiteFooter({ disclaimer }: SiteFooterProps) {
           <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-emerald-950">
             <HubMark className="h-8 w-8" />
           </span>
-          <span className="text-lg font-bold text-slate-800">{SITE_NAME}</span>
+          <span className={`${brandFont.className} text-2xl tracking-tight text-slate-800`}>{SITE_NAME}</span>
         </div>
 
         {disclaimer && (
