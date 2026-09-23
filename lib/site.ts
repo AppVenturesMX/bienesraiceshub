@@ -1,11 +1,11 @@
 // Constantes de marca y negocio compartidas por todo el sitio.
 // Bienes Raíces Hub es una marca de corretaje propia (no un directorio abierto):
-// las propiedades listadas aquí son representadas por el mismo asesor/red,
-// con el mismo embudo de precalificación hacia preaprueba.com en cada una.
+// cada propiedad listada aquí pasa por el mismo proceso conectado —
+// precalificación, cita y cierre — hacia preaprueba.com en cada una.
 
 export const SITE_NAME = "Bienes Raíces Hub"
 export const SITE_TAGLINE =
-  "Un mismo asesor te acompaña de principio a fin, con precalificación de crédito sin costo en cada propiedad."
+  "Precalificación de crédito, cita y cierre, coordinados en un mismo proceso — sin que tengas que armarlo tú por tu cuenta."
 export const SITE_DESCRIPTION =
   "Directorio de propiedades en venta en Baja California, cada una con precalificación de crédito sin costo vía preaprueba.com."
 

@@ -67,9 +67,9 @@ export const properties: Property[] = [
     status: "disponible",
 
     locationBadge: "Playas de Tijuana · Sección Monumental",
-    title: "¿Trabajas en San Diego pero sueñas con vivir frente al mar?",
+    title: "La casa de tus sueños en Playas de Tijuana: alta plusvalía y potencial comercial.",
     description:
-      "Amplia residencia en la Sección Monumental de Playas de Tijuana. Tranquilidad del Pacífico + conectividad envidiable.",
+      "Amplia residencia en la Sección Monumental de Playas de Tijuana, una de las zonas con mayor plusvalía y potencial comercial de la ciudad.",
     price: 439000,
     currency: "USD",
     heroImage: {
@@ -77,7 +77,7 @@ export const properties: Property[] = [
       alt: "Fachada de la residencia en la Sección Monumental, Playas de Tijuana",
     },
 
-    metaTitle: "Residencia frente al mar en Playas de Tijuana | $439,000 USD — Bienes Raíces Hub",
+    metaTitle: "Residencia con alta plusvalía en Playas de Tijuana | $439,000 USD — Bienes Raíces Hub",
     metaDescription:
       "Amplia residencia en la Sección Monumental de Playas de Tijuana. 3 recámaras, a 10 min de la frontera y a 3 cuadras del nuevo Malecón. Agenda tu cita con el asesor.",
 
@@ -105,7 +105,7 @@ export const properties: Property[] = [
         icon: Car,
         title: "A unos 10 minutos de la frontera",
         description:
-          "A unos 10 minutos de la línea fronteriza (según tráfico). Pensada para quien cruza a San Diego con frecuencia.",
+          "A unos 10 minutos de la línea fronteriza (según tráfico), con fácil acceso a los cruces internacionales.",
       },
       {
         icon: Waves,
@@ -163,7 +163,7 @@ export const properties: Property[] = [
     ],
 
     contactoHeading: "Agenda tu cita con el asesor inmobiliario y conoce la residencia en persona.",
-    contactoSubheading: "Déjanos ayudarte a dar el siguiente paso hacia tu nueva vida frente al mar.",
+    contactoSubheading: "Déjanos ayudarte a dar el siguiente paso hacia la casa de tus sueños en Playas de Tijuana.",
     whatsappNumber: WHATSAPP_NUMBER,
     whatsappMessage: "Hola, me interesa la residencia en Sección Monumental de $439,000 USD. Quiero agendar una cita con el asesor.",
 
