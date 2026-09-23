@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/reveal"
+import { SocMark } from "@/components/soc-mark"
 import { PREAPRUEBA_URL } from "@/lib/site"
 import type { Property } from "@/lib/properties"
 
@@ -34,9 +35,10 @@ export function Facilidades({ property }: { property: Property }) {
               href={PREAPRUEBA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-emerald-500 px-8 py-4 text-base font-bold text-white shadow-lg transition-transform hover:scale-105 hover:bg-emerald-600"
+              className="mt-6 inline-flex items-center justify-center gap-2.5 rounded-full bg-emerald-500 px-8 py-4 text-base font-bold text-emerald-950 shadow-lg shadow-emerald-950/40 transition-transform hover:scale-105 hover:bg-emerald-400"
             >
-              👉 IR A PREAPRUEBA.COM AHORA
+              <SocMark className="h-6 w-auto" />
+              Precalifícame
             </a>
           </div>
         </Reveal>
