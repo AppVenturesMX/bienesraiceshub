@@ -45,7 +45,7 @@ export function HubHero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
         >
-          Compra, vende o renta — con crédito, trámites y cierre conectados en un mismo Hub.
+          Valor Hub: del primer contacto al cierre, todo conectado.
         </motion.h1>
 
         <motion.p
