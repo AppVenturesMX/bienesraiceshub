@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Home2 } from "./home2-icon"
+import { HubMark } from "./hub-mark"
 import { WhatsAppIcon } from "./whatsapp-icon"
 import { GENERAL_WHATSAPP_URL, SITE_NAME } from "@/lib/site"
 
@@ -22,7 +22,7 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-2.5">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-emerald-950 sm:h-10 sm:w-10">
-            <Home2 className="h-4 w-4 sm:h-5 sm:w-5" />
+            <HubMark className="h-4 w-4 sm:h-5 sm:w-5" />
           </span>
           <span className="whitespace-nowrap text-base font-bold tracking-tight text-white sm:text-lg">
             {SITE_NAME}

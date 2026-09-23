@@ -1,3 +1,4 @@
+import { HubMark } from "./hub-mark"
 import { SITE_NAME } from "@/lib/site"
 
 type SiteFooterProps = {
@@ -9,7 +10,12 @@ export function SiteFooter({ disclaimer }: SiteFooterProps) {
   return (
     <footer className="border-t border-emerald-100 bg-slate-50 py-10">
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-        <span className="text-lg font-bold text-slate-800">{SITE_NAME}</span>
+        <div className="flex items-center justify-center gap-2.5">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-emerald-950">
+            <HubMark className="h-4 w-4" />
+          </span>
+          <span className="text-lg font-bold text-slate-800">{SITE_NAME}</span>
+        </div>
 
         {disclaimer && (
           <p className="mt-4 text-sm leading-relaxed text-slate-500">{disclaimer}</p>
