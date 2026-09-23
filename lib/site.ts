@@ -4,7 +4,8 @@
 // con el mismo embudo de precalificación hacia preaprueba.com en cada una.
 
 export const SITE_NAME = "Bienes Raíces Hub"
-export const SITE_TAGLINE = "Tu próxima propiedad, con el respaldo de un asesor real."
+export const SITE_TAGLINE =
+  "Un mismo asesor te acompaña de principio a fin, con precalificación de crédito sin costo en cada propiedad."
 export const SITE_DESCRIPTION =
   "Directorio de propiedades en venta en Baja California, cada una con precalificación de crédito sin costo vía preaprueba.com."
 
@@ -20,4 +21,12 @@ export function buildWhatsAppUrl(message: string, number: string = WHATSAPP_NUMB
 
 export const GENERAL_WHATSAPP_URL = buildWhatsAppUrl(
   "Hola, vi Bienes Raíces Hub y quiero más información.",
+)
+
+// CTAs del selector de intención (comprar / vender / rentar) en el hero del Hub.
+export const SELL_WHATSAPP_URL = buildWhatsAppUrl(
+  "Hola, quiero vender mi propiedad. ¿Me pueden ayudar?",
+)
+export const RENT_WHATSAPP_URL = buildWhatsAppUrl(
+  "Hola, busco rentar una propiedad en Baja California. ¿Qué tienen disponible?",
 )

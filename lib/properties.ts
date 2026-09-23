@@ -176,6 +176,15 @@ export function getProperty(slug: string): Property | undefined {
   return properties.find((p) => p.slug === slug)
 }
 
+// Fotos reales para el mosaico de fondo del hero del Hub. Toma la galería de
+// todas las propiedades (hoy solo una) y repite en ciclo hasta llenar `count`
+// casillas, así el mosaico se enriquece solo conforme se agreguen propiedades.
+export function getHeroMosaicImages(count = 12): GaleriaImage[] {
+  const pool = properties.flatMap((p) => p.gallery)
+  if (pool.length === 0) return []
+  return Array.from({ length: count }, (_, i) => pool[i % pool.length])
+}
+
 export function getPropertyWhatsAppUrl(property: Property) {
   return buildWhatsAppUrl(property.whatsappMessage, property.whatsappNumber)
 }
