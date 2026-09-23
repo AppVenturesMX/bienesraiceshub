@@ -4,9 +4,9 @@ import { Reveal } from "@/components/reveal"
 const razones = [
   {
     icon: UserCheck,
-    title: "Un mismo asesor, de principio a fin",
+    title: "Todo conectado, de principio a fin",
     description:
-      "Hablas directo con la misma persona que conoce cada propiedad del directorio, sin cambios de asesor en el camino.",
+      "Precalificación de crédito, cita y cierre avanzan coordinados, sin que tengas que ir armando cada paso por tu cuenta.",
   },
   {
     icon: ShieldCheck,
@@ -31,8 +31,8 @@ export function HubWhyUs() {
             ¿Por qué buscar tu propiedad aquí?
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-            Cada propiedad de este directorio pasa por el mismo asesor y el mismo proceso de
-            crédito — no es un portal abierto a cualquiera.
+            Cada propiedad de este directorio pasa por el mismo proceso de precalificación y
+            acompañamiento — no es un portal abierto a cualquiera.
           </p>
         </Reveal>
 

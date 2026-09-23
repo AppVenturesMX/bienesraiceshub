@@ -10,7 +10,7 @@ export function HubTrustBar() {
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-3 px-4 py-5 text-center text-sm text-slate-300 sm:flex-row sm:justify-center sm:gap-8 sm:px-6 sm:text-left">
         <span className="flex items-center gap-2">
           <UserCheck className="h-4 w-4 shrink-0 text-emerald-400" />
-          Un mismo asesor, de principio a fin
+          Todo conectado, de principio a fin
         </span>
         <span className="hidden h-4 w-px bg-white/10 sm:block" aria-hidden="true" />
         <a
