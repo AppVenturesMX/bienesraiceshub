@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { HubMark } from "./hub-mark"
 import { SITE_NAME } from "@/lib/site"
 import { brandFont } from "@/lib/fonts"
@@ -22,7 +23,11 @@ export function SiteFooter({ disclaimer }: SiteFooterProps) {
           <p className="mt-4 text-sm leading-relaxed text-slate-500">{disclaimer}</p>
         )}
 
-        <p className="mt-4 text-sm text-slate-500">
+        <p className="mt-4 flex items-center justify-center gap-2 text-sm text-slate-500">
+          <Link href="/nosotros" className="underline underline-offset-2 hover:text-emerald-700">
+            Quiénes somos
+          </Link>
+          <span aria-hidden="true">·</span>
           <a
             href="/docs/AVISO-DE-PRIVACIDAD-MYPO-GLOBAL.pdf"
             target="_blank"

@@ -7,8 +7,8 @@ import { GENERAL_WHATSAPP_URL, SITE_NAME } from "@/lib/site"
 import { brandFont } from "@/lib/fonts"
 
 type NavbarProps = {
-  /** En una página de propiedad, ancla a sus propias secciones internas. En el home del Hub, enlaza a la sección de propiedades. */
-  mode?: "hub" | "property"
+  /** En una página de propiedad, ancla a sus propias secciones internas. En el home del Hub, enlaza a la sección de propiedades. En "Quiénes somos", ancla a sus propias secciones. */
+  mode?: "hub" | "property" | "about"
   whatsappUrl?: string
 }
 
@@ -44,6 +44,27 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
                 className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
               >
                 La propiedad
+              </button>
+            </>
+          ) : mode === "about" ? (
+            <>
+              <Link
+                href="/"
+                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              >
+                Inicio
+              </Link>
+              <button
+                onClick={() => scrollTo("especialidades")}
+                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              >
+                Especialidades
+              </button>
+              <button
+                onClick={() => scrollTo("valores")}
+                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+              >
+                Valores
               </button>
             </>
           ) : (
