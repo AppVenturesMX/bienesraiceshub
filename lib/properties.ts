@@ -176,11 +176,38 @@ export function getProperty(slug: string): Property | undefined {
   return properties.find((p) => p.slug === slug)
 }
 
+// Orden de preferencia para el mosaico del hero: primero las tomas más
+// "vendedoras" (exterior, áreas sociales), al final las más utilitarias
+// (baño, litera). Se compara contra el nombre de archivo (sin extensión).
+const HERO_MOSAIC_PRIORITY = [
+  "fachada",
+  "patio",
+  "sala",
+  "comedor",
+  "cocina-barra",
+  "recamara-principal",
+  "estancia",
+  "cocina",
+  "sala-2",
+  "patio-lateral",
+  "recamara-3",
+  "recamara-2",
+  "bano",
+  "recamara-literas",
+]
+
+function heroMosaicRank(img: GaleriaImage): number {
+  const basename = img.src.split("/").pop()?.replace(/\.[a-z]+$/i, "") ?? ""
+  const rank = HERO_MOSAIC_PRIORITY.indexOf(basename)
+  return rank === -1 ? HERO_MOSAIC_PRIORITY.length : rank
+}
+
 // Fotos reales para el mosaico de fondo del hero del Hub. Toma la galería de
-// todas las propiedades (hoy solo una) y repite en ciclo hasta llenar `count`
-// casillas, así el mosaico se enriquece solo conforme se agreguen propiedades.
-export function getHeroMosaicImages(count = 12): GaleriaImage[] {
-  const pool = properties.flatMap((p) => p.gallery)
+// todas las propiedades (hoy solo una), prioriza las tomas más atractivas y
+// repite en ciclo hasta llenar `count` casillas, así el mosaico se enriquece
+// solo conforme se agreguen propiedades.
+export function getHeroMosaicImages(count = 8): GaleriaImage[] {
+  const pool = properties.flatMap((p) => p.gallery).sort((a, b) => heroMosaicRank(a) - heroMosaicRank(b))
   if (pool.length === 0) return []
   return Array.from({ length: count }, (_, i) => pool[i % pool.length])
 }
