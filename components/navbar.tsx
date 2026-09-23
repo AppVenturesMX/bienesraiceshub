@@ -20,11 +20,13 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
   return (
     <header className="absolute inset-x-0 top-0 z-40 w-full">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-emerald-950">
-            <Home2 className="h-5 w-5" />
+        <Link href="/" className="flex min-w-0 items-center gap-2.5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-emerald-950 sm:h-10 sm:w-10">
+            <Home2 className="h-4 w-4 sm:h-5 sm:w-5" />
           </span>
-          <span className="text-lg font-bold tracking-tight text-white">{SITE_NAME}</span>
+          <span className="whitespace-nowrap text-base font-bold tracking-tight text-white sm:text-lg">
+            {SITE_NAME}
+          </span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
@@ -71,9 +73,9 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-semibold text-emerald-950 shadow-md transition-colors hover:bg-emerald-400"
+          className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-emerald-500 px-3.5 py-2 text-xs font-semibold text-emerald-950 shadow-md transition-colors hover:bg-emerald-400 sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
         >
-          <WhatsAppIcon className="h-4 w-4" />
+          <WhatsAppIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           Agendar visita
         </a>
       </nav>
