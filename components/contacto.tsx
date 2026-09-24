@@ -21,7 +21,7 @@ export function Contacto({ property }: { property: Property }) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-emerald-900/20 transition-transform hover:scale-105 hover:bg-emerald-600"
+            className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-emerald-500/40 ring-1 ring-white/30 transition-all hover:-translate-y-0.5 hover:from-emerald-300 hover:to-emerald-400 hover:shadow-emerald-400/50"
           >
             <WhatsAppIcon className="h-6 w-6" />
             Solicitar Más Información

@@ -35,7 +35,7 @@ export function Facilidades({ property }: { property: Property }) {
               href={PREAPRUEBA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 inline-flex items-center justify-center gap-2.5 rounded-full bg-emerald-500 px-8 py-4 text-base font-bold text-emerald-950 shadow-lg shadow-emerald-950/40 transition-transform hover:scale-105 hover:bg-emerald-400"
+              className="mt-6 inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 px-8 py-4 text-base font-bold text-white shadow-lg shadow-emerald-500/40 ring-1 ring-white/30 transition-all hover:-translate-y-0.5 hover:from-emerald-300 hover:to-emerald-400 hover:shadow-emerald-400/50"
             >
               <SocMark className="h-6 w-auto" />
               Precalifícame

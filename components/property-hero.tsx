@@ -23,7 +23,7 @@ type PropertyHeroData = {
 }
 
 const ctaClass =
-  "inline-flex min-h-[52px] w-full items-center justify-center gap-2.5 rounded-full bg-emerald-500 px-7 py-3.5 text-base font-semibold text-emerald-950 shadow-lg shadow-emerald-950/40 transition-colors hover:bg-emerald-400 sm:w-auto sm:min-w-[270px]"
+  "inline-flex min-h-[52px] w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 px-7 py-3.5 text-base font-bold text-white shadow-lg shadow-emerald-500/40 ring-1 ring-white/30 transition-all hover:-translate-y-0.5 hover:from-emerald-300 hover:to-emerald-400 hover:shadow-emerald-400/50 sm:w-auto sm:min-w-[270px]"
 
 export function PropertyHero({
   property,

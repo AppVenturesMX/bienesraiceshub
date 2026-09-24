@@ -38,7 +38,7 @@ export function HubHowItWorks() {
           {pasos.map((paso, i) => (
             <Reveal key={paso.numero} delay={i * 0.1}>
               <div className="h-full rounded-2xl border border-white/10 bg-white/5 p-7">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-500 text-lg font-extrabold text-emerald-950">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-emerald-500 text-lg font-extrabold text-white shadow-md shadow-emerald-500/30 ring-1 ring-white/20">
                   {paso.numero}
                 </span>
                 <h3 className="mt-5 text-lg font-bold text-white">{paso.title}</h3>
