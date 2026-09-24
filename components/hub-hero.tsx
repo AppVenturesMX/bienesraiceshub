@@ -41,7 +41,7 @@ export function HubHero() {
         className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-950/70 to-slate-950/92"
         aria-hidden="true"
       />
-      <HubMark className="pointer-events-none absolute -bottom-16 -right-16 h-72 w-72 text-white opacity-[0.06] sm:h-96 sm:w-96" />
+      <HubMark className="pointer-events-none absolute -bottom-6 -right-6 h-64 w-64 text-emerald-400 opacity-[0.22] sm:h-80 sm:w-80" />
 
       <div className="relative mx-auto flex min-h-[78vh] max-w-5xl flex-col items-center gap-8 px-4 pb-16 pt-32 text-center sm:px-6 lg:pb-20 lg:pt-40">
         <motion.span
