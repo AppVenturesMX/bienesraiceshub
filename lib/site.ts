@@ -5,7 +5,7 @@
 
 export const SITE_NAME = "Bienes Raíces Hub"
 export const SITE_TAGLINE =
-  "Precalificación de crédito, cita y cierre, coordinados en un mismo proceso — sin que tengas que armarlo tú por tu cuenta."
+  "Precalificación de crédito, cita y cierre, coordinados por un mismo equipo, para que tu único trabajo sea elegir tu próxima propiedad."
 export const SITE_DESCRIPTION =
   "Directorio de propiedades en venta en Baja California, cada una con precalificación de crédito sin costo vía preaprueba.com."
 
