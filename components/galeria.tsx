@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { Reveal } from "@/components/reveal"
+import { PhotoWatermark } from "@/components/photo-watermark"
 import type { GaleriaImage } from "@/lib/properties"
 
 export function Galeria({ fotos }: { fotos: GaleriaImage[] }) {
@@ -57,6 +58,8 @@ export function Galeria({ fotos }: { fotos: GaleriaImage[] }) {
               <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/70 to-transparent p-5 sm:p-6">
                 <p className="text-sm font-medium text-emerald-50 sm:text-base">{current.alt}</p>
               </div>
+
+              <PhotoWatermark />
 
               <button
                 onClick={() => go(-1)}

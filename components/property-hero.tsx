@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { MapPin } from "lucide-react"
 import { WhatsAppIcon } from "./whatsapp-icon"
 import { SocMark } from "./soc-mark"
+import { HubMark } from "./hub-mark"
+import { PhotoWatermark } from "./photo-watermark"
 import { PREAPRUEBA_URL } from "@/lib/site"
 import type { GaleriaImage } from "@/lib/properties"
 
@@ -32,7 +34,9 @@ export function PropertyHero({
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950">
-      <div className="mx-auto grid min-h-[85vh] max-w-6xl items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:pb-20 lg:pt-32">
+      <HubMark className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 text-white opacity-[0.05] sm:h-[26rem] sm:w-[26rem]" />
+
+      <div className="relative mx-auto grid min-h-[85vh] max-w-6xl items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:pb-20 lg:pt-32">
         <div className="flex flex-col gap-6">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
@@ -101,12 +105,13 @@ export function PropertyHero({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
         >
-          <div className="overflow-hidden rounded-3xl shadow-2xl shadow-black/50 ring-1 ring-white/15">
+          <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-black/50 ring-1 ring-white/15">
             <img
               src={property.heroImage.src}
               alt={property.heroImage.alt}
               className="aspect-[4/3] w-full object-cover"
             />
+            <PhotoWatermark />
           </div>
         </motion.div>
       </div>

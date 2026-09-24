@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Users } from "lucide-react"
+import { HubMark } from "./hub-mark"
 
 export function AboutHero() {
   return (
@@ -15,6 +16,7 @@ export function AboutHero() {
         }}
         aria-hidden="true"
       />
+      <HubMark className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 text-white opacity-[0.05] sm:h-[26rem] sm:w-[26rem]" />
 
       <div className="relative mx-auto flex min-h-[56vh] max-w-4xl flex-col items-center gap-6 px-4 pb-16 pt-32 text-center sm:px-6 lg:pt-40">
         <motion.span
