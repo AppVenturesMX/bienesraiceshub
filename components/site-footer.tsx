@@ -13,7 +13,7 @@ export function SiteFooter({ disclaimer }: SiteFooterProps) {
     <footer className="border-t border-emerald-100 bg-slate-50 py-10">
       <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
         <div className="flex items-center justify-center gap-3">
-          <HubMark className="h-11 w-11 shrink-0 text-slate-800 sm:h-14 sm:w-14" />
+          <HubMark className="h-11 w-11 shrink-0 text-emerald-600 sm:h-14 sm:w-14" />
           <span className={`${brandFont.className} text-2xl tracking-tight text-slate-800`}>{SITE_NAME}</span>
         </div>
 

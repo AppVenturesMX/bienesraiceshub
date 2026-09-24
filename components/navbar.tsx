@@ -22,7 +22,7 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
     <header className="absolute inset-x-0 top-0 z-40 w-full">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-3">
-          <HubMark className="h-10 w-10 shrink-0 text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] sm:h-14 sm:w-14" />
+          <HubMark className="h-10 w-10 shrink-0 text-emerald-400 drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] sm:h-14 sm:w-14" />
           <span className={`${brandFont.className} whitespace-nowrap text-lg tracking-tight text-white drop-shadow-sm sm:text-2xl`}>
             {SITE_NAME}
           </span>
