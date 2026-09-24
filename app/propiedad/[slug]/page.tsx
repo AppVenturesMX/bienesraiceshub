@@ -2,9 +2,11 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { PropertyHero } from "@/components/property-hero"
+import { PropertyTrustBar } from "@/components/property-trust-bar"
 import { Galeria } from "@/components/galeria"
 import { Ubicacion } from "@/components/ubicacion"
 import { Espacios } from "@/components/espacios"
+import { PropertyHubStrength } from "@/components/property-hub-strength"
 import { Facilidades } from "@/components/facilidades"
 import { Contacto } from "@/components/contacto"
 import { SiteFooter } from "@/components/site-footer"
@@ -67,9 +69,11 @@ export default async function PropertyPage({ params }: PageProps) {
           }}
           whatsappUrl={whatsappUrl}
         />
+        <PropertyTrustBar />
         <Galeria fotos={property.gallery} />
         <Ubicacion property={property} />
         <Espacios property={property} />
+        <PropertyHubStrength />
         <Facilidades property={property} />
         <Contacto property={property} />
       </main>
