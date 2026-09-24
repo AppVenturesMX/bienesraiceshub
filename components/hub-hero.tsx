@@ -22,7 +22,7 @@ export function HubHero() {
               <motion.img
                 src={img.src}
                 alt=""
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover saturate-[1.2] contrast-[1.08] brightness-[1.05]"
                 initial={{ scale: 1 }}
                 animate={{ scale: 1.08 }}
                 transition={{
@@ -38,7 +38,11 @@ export function HubHero() {
         </div>
       )}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-950/70 to-slate-950/92"
+        className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-950/62 to-slate-950/92"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-slate-950/75 to-transparent sm:h-44"
         aria-hidden="true"
       />
       <HubMark className="pointer-events-none absolute -bottom-6 -right-6 h-64 w-64 text-emerald-400 opacity-[0.22] sm:h-80 sm:w-80" />

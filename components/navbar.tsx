@@ -25,7 +25,7 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-emerald-950 sm:h-14 sm:w-14">
             <HubMark className="h-6 w-6 sm:h-9 sm:w-9" />
           </span>
-          <span className={`${brandFont.className} whitespace-nowrap text-base tracking-tight text-white sm:text-2xl`}>
+          <span className={`${brandFont.className} whitespace-nowrap text-lg tracking-tight text-white drop-shadow-sm sm:text-2xl`}>
             {SITE_NAME}
           </span>
         </Link>
@@ -35,13 +35,13 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
             <>
               <button
                 onClick={() => scrollTo("ubicacion")}
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 Ubicación
               </button>
               <button
                 onClick={() => scrollTo("espacios")}
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 La propiedad
               </button>
@@ -50,19 +50,19 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
             <>
               <Link
                 href="/"
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 Inicio
               </Link>
               <button
                 onClick={() => scrollTo("especialidades")}
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 Especialidades
               </button>
               <button
                 onClick={() => scrollTo("valores")}
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 Valores
               </button>
@@ -71,19 +71,19 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
             <>
               <button
                 onClick={() => scrollTo("nosotros")}
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 Por qué nosotros
               </button>
               <button
                 onClick={() => scrollTo("propiedades")}
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 Propiedades
               </button>
               <button
                 onClick={() => scrollTo("como-funciona")}
-                className="text-sm font-medium text-slate-200 transition-colors hover:text-white"
+                className="text-base font-semibold text-slate-100 drop-shadow-sm transition-colors hover:text-white"
               >
                 Cómo funciona
               </button>
@@ -95,9 +95,9 @@ export function Navbar({ mode = "hub", whatsappUrl = GENERAL_WHATSAPP_URL }: Nav
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-emerald-500 px-3.5 py-2 text-xs font-semibold text-emerald-950 shadow-md transition-colors hover:bg-emerald-400 sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
+          className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-500/50 ring-1 ring-white/40 transition-all hover:-translate-y-0.5 hover:from-emerald-300 hover:to-emerald-400 hover:shadow-emerald-400/60 sm:gap-2 sm:px-6 sm:py-3 sm:text-base"
         >
-          <WhatsAppIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+          <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5" />
           Agendar visita
         </a>
       </nav>
