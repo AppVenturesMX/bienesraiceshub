@@ -170,6 +170,124 @@ export const properties: Property[] = [
     disclaimer:
       "Precio expresado en dólares americanos (USD). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
   },
+  {
+    slug: "arrecife-san-antonio-del-mar",
+    status: "disponible",
+
+    locationBadge: "San Antonio del Mar · Arrecife, Tijuana",
+    title:
+      "Residencia frente al mar de 410 m² en el fraccionamiento privado San Antonio del Mar, con vistas panorámicas al Pacífico en tres niveles.",
+    description:
+      "Casa de 4 recámaras y 4.5 baños en un fraccionamiento privado tipo resort, con alberca, seguridad 24/7 y acceso a la playa a unos pasos, en Arrecife, Tijuana.",
+    price: 380000,
+    currency: "USD",
+    heroImage: {
+      src: "/images/properties/arrecife-san-antonio-del-mar/fachada.jpg",
+      alt: "Fachada de la residencia con muro de piedra volcánica y acceso principal",
+    },
+
+    metaTitle: "Residencia frente al mar en San Antonio del Mar, Tijuana | $380,000 USD — Bienes Raíces Hub",
+    metaDescription:
+      "Residencia de 410 m² en el fraccionamiento privado San Antonio del Mar, Tijuana. 4 recámaras, vistas al Pacífico en tres niveles, alberca y seguridad 24/7. Agenda tu visita con el asesor.",
+
+    gallery: [
+      { src: "/images/properties/arrecife-san-antonio-del-mar/fachada.jpg", alt: "Fachada de la residencia con muro de piedra volcánica y acceso principal" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/acceso-entrada.jpg", alt: "Acceso techado hacia la puerta principal, con piso de talavera y jardín interior" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/vestibulo.jpg", alt: "Vestíbulo de entrada con puertas de madera talladas y vitrales artesanales" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/sala-chimenea.jpg", alt: "Sala con chimenea de piedra volcánica y vista al mar de fondo" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/cocina.jpg", alt: "Cocina completa con alacena y acceso directo a la sala" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/cocina-detalle.jpg", alt: "Área de cocina con ventana y vista al mar" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/terraza-exterior.jpg", alt: "Terraza exterior con acabados de ladrillo en el segundo nivel" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/recibidor.jpg", alt: "Recibidor con arcos de ladrillo y acceso a medio baño" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/medio-bano.jpg", alt: "Medio baño con talavera azul y blanca" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/cochera.jpg", alt: "Cochera techada para 3 autos con acceso doble" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/escalera.jpg", alt: "Escalera interior con tragaluz y arcos de ladrillo" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/cocina-alacena.jpg", alt: "Cocina con alacena de madera y horno empotrado" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/walk-in-closet.jpg", alt: "Walk-in closet de la recámara principal" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/bano-principal.jpg", alt: "Baño principal con regadera de block de vidrio y doble tocador" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/recamara.jpg", alt: "Recámara con ventana amplia y vista al fraccionamiento" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/sala-vista-mar.jpg", alt: "Estancia de techos altos con chimenea y vista panorámica al mar" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/bano-talavera.jpg", alt: "Baño con talavera artesanal en tocador y muros" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/terraza-vista-mar.jpg", alt: "Terraza privada con chimenea y vista al atardecer sobre el Pacífico" },
+      { src: "/images/properties/arrecife-san-antonio-del-mar/estancia.jpg", alt: "Estancia con vigas de madera y chimenea, con acceso a terraza" },
+    ],
+
+    ubicacionHeading: "Una ubicación frente al mar, con todo cerca",
+    ubicacionSubheading: "Conectividad estratégica y las comodidades de un fraccionamiento privado.",
+    ubicacionItems: [
+      {
+        icon: Waves,
+        title: "Acceso a la playa a unos pasos",
+        description:
+          "El fraccionamiento privado San Antonio del Mar tiene salida directa a la playa, a solo unos pasos de la residencia.",
+      },
+      {
+        icon: Car,
+        title: "A minutos de Rosarito y la línea internacional",
+        description:
+          "Conectividad estratégica hacia el corredor costero de Rosarito, Playas de Tijuana y los cruces fronterizos con Estados Unidos.",
+      },
+      {
+        icon: MapPin,
+        title: "Restaurantes y comercios a la mano",
+        description:
+          "A un lado de los mejores restaurantes y comercios de la zona, con escuelas y parques cercanos.",
+      },
+    ],
+    mapEmbedSrc:
+      "https://maps.google.com/maps?q=San%20Antonio%20del%20Mar%2C%20Arrecife%2C%20Tijuana%2C%20Baja%20California&z=15&output=embed",
+    mapCaption: "Ubicación aproximada (Fraccionamiento San Antonio del Mar). La dirección exacta se comparte al agendar tu cita.",
+
+    espaciosHeading: "Espacios con carácter, en tres niveles",
+    espaciosSubheading: "410 m² de construcción con arquitectura mediterránea y vistas al mar.",
+    espaciosItems: [
+      {
+        icon: BedDouble,
+        title: "4 Recámaras + 4.5 Baños",
+        description:
+          "La recámara principal está en la planta alta, con chimenea propia, walk-in closet y terraza privada.",
+      },
+      {
+        icon: Landmark,
+        title: "Arquitectura con carácter",
+        description:
+          "Dos chimeneas de piedra volcánica, puertas de madera talladas con vitrales artesanales y arcos de ladrillo en toda la casa.",
+      },
+      {
+        icon: Warehouse,
+        title: "Cochera para 3 autos",
+        description: "Cochera techada con acceso doble, por el frente y por la calle de atrás de la propiedad.",
+      },
+      {
+        icon: Droplets,
+        title: "Plus técnico",
+        description:
+          "Aire acondicionado en toda la casa, cisterna de agua con bomba y cisterna de gas.",
+      },
+      {
+        icon: Building2,
+        title: "Fraccionamiento privado tipo resort",
+        description:
+          "Casa club con alberca, cancha de tenis y fútbol, parque infantil y caseta de vigilancia con seguridad 24/7.",
+      },
+    ],
+
+    formasDePago: [
+      { icon: Banknote, label: "Efectivo" },
+      { icon: Building2, label: "Crédito Infonavit" },
+      { icon: Landmark, label: "Crédito Bancario" },
+    ],
+
+    contactoHeading: "Agenda tu visita privada y conoce esta residencia frente al mar.",
+    contactoSubheading:
+      "Descubre en persona los tres niveles, las vistas al Pacífico y las amenidades del fraccionamiento San Antonio del Mar.",
+    whatsappNumber: WHATSAPP_NUMBER,
+    whatsappMessage:
+      "Hola, me interesa la residencia frente al mar en San Antonio del Mar de $380,000 USD. Quiero agendar una visita con el asesor.",
+
+    disclaimer:
+      "Precio expresado en dólares americanos (USD). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
+  },
 ]
 
 export function getProperty(slug: string): Property | undefined {
