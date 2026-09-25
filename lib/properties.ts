@@ -176,7 +176,7 @@ export const properties: Property[] = [
 
     locationBadge: "San Antonio del Mar · Arrecife, Tijuana",
     title:
-      "Residencia frente al mar de 410 m² en el fraccionamiento privado San Antonio del Mar, con vistas panorámicas al Pacífico en tres niveles.",
+      "Residencia frente al mar de 410 m² de construcción en el fraccionamiento privado San Antonio del Mar, con vistas panorámicas al Pacífico en tres niveles.",
     description:
       "Casa de 4 recámaras y 4.5 baños en un fraccionamiento privado tipo resort, con alberca, seguridad 24/7 y acceso a la playa a unos pasos, en Arrecife, Tijuana.",
     price: 380000,
@@ -188,7 +188,7 @@ export const properties: Property[] = [
 
     metaTitle: "Residencia frente al mar en San Antonio del Mar, Tijuana | $380,000 USD — Bienes Raíces Hub",
     metaDescription:
-      "Residencia de 410 m² en el fraccionamiento privado San Antonio del Mar, Tijuana. 4 recámaras, vistas al Pacífico en tres niveles, alberca y seguridad 24/7. Agenda tu visita con el asesor.",
+      "Residencia de 410 m² de construcción sobre 182 m² de terreno en el fraccionamiento privado San Antonio del Mar, Tijuana. 4 recámaras, vistas al Pacífico en tres niveles, alberca y seguridad 24/7. Agenda tu visita con el asesor.",
 
     gallery: [
       { src: "/images/properties/arrecife-san-antonio-del-mar/fachada.jpg", alt: "Fachada de la residencia con muro de piedra volcánica y acceso principal" },
@@ -239,7 +239,7 @@ export const properties: Property[] = [
     mapCaption: "Ubicación aproximada (Fraccionamiento San Antonio del Mar). La dirección exacta se comparte al agendar tu cita.",
 
     espaciosHeading: "Espacios con carácter, en tres niveles",
-    espaciosSubheading: "410 m² de construcción con arquitectura mediterránea y vistas al mar.",
+    espaciosSubheading: "410 m² de construcción sobre 182 m² de terreno, con arquitectura mediterránea y vistas al mar.",
     espaciosItems: [
       {
         icon: BedDouble,
