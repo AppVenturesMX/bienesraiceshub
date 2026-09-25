@@ -1,4 +1,4 @@
-import { Banknote, BedDouble, Briefcase, Car, Droplets, Landmark, Building2, MapPin, Sofa, Warehouse, Waves, type LucideIcon } from "lucide-react"
+import { Banknote, BedDouble, Briefcase, Car, Droplets, Landmark, Building2, MapPin, Percent, Sofa, Warehouse, Waves, type LucideIcon } from "lucide-react"
 import { buildWhatsAppUrl, WHATSAPP_NUMBER } from "@/lib/site"
 
 export type GaleriaImage = {
@@ -287,6 +287,110 @@ export const properties: Property[] = [
 
     disclaimer:
       "Precio expresado en dólares americanos (USD). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
+  },
+  {
+    slug: "amatista-punta-azul",
+    status: "disponible",
+
+    locationBadge: "Punta Azul · Lienzo Charro, Rosarito",
+    title:
+      "Casa nueva de 3 niveles con roof deck y vista al mar, dentro del fraccionamiento Punta Azul en Playas de Rosarito.",
+    description:
+      "Amatista, casa de 3 recámaras y 4 baños de 157 m² de construcción, en el fraccionamiento privado Punta Azul (Lienzo Charro), con alberca, gimnasio, canchas de tenis y seguridad 24/7.",
+    price: 295000,
+    currency: "USD",
+    heroImage: {
+      src: "/images/properties/amatista-punta-azul/fachada-modelo.jpg",
+      alt: "Fachada de una casa terminada del desarrollo Punta Azul, con cochera y roof deck",
+    },
+
+    metaTitle: "Casa Amatista en Punta Azul, Rosarito | $295,000 USD — Bienes Raíces Hub",
+    metaDescription:
+      "Casa nueva de 157 m² de construcción sobre 120 m² de terreno en el fraccionamiento Punta Azul, Playas de Rosarito. 3 recámaras, 4 baños, roof deck con vista al mar y amenidades tipo resort. Agenda tu visita con el asesor.",
+
+    gallery: [
+      { src: "/images/properties/amatista-punta-azul/fachada-modelo.jpg", alt: "Fachada de una casa terminada del desarrollo Punta Azul, con cochera y roof deck" },
+      { src: "/images/properties/amatista-punta-azul/render-sala-doble-altura.jpg", alt: "Render de sala y comedor de concepto abierto con techo de doble altura" },
+      { src: "/images/properties/amatista-punta-azul/render-cocina-comedor.jpg", alt: "Render de cocina con isla y comedor integrado" },
+      { src: "/images/properties/amatista-punta-azul/render-recamara.jpg", alt: "Render de recámara con clóset y balcón" },
+      { src: "/images/properties/amatista-punta-azul/obra-fachada-avance.jpg", alt: "Fachada de la casa en etapa de avance de obra, con ventanas protegidas" },
+      { src: "/images/properties/amatista-punta-azul/obra-doble-altura.jpg", alt: "Interior en obra: sala de doble altura con tragaluz y ventanas altas" },
+      { src: "/images/properties/amatista-punta-azul/obra-pasillo.jpg", alt: "Pasillo del segundo nivel en etapa de obra, con material de acabados" },
+      { src: "/images/properties/amatista-punta-azul/obra-pasillo-noche.jpg", alt: "Pasillo del segundo nivel en obra, vista hacia el hueco de escalera" },
+      { src: "/images/properties/amatista-punta-azul/obra-escalera.jpg", alt: "Escalera interior en etapa de obra gris" },
+      { src: "/images/properties/amatista-punta-azul/obra-cochera.jpg", alt: "Cochera techada en etapa de obra, con vista a la calle del fraccionamiento" },
+      { src: "/images/properties/amatista-punta-azul/roof-deck-dia.jpg", alt: "Roof deck de día, con vista panorámica hacia el mar a la distancia" },
+      { src: "/images/properties/amatista-punta-azul/roof-deck-noche.jpg", alt: "Roof deck al atardecer, con acabados terminados" },
+    ],
+
+    ubicacionHeading: "Dentro de un fraccionamiento privado en Playas de Rosarito",
+    ubicacionSubheading: "Acceso controlado, amenidades tipo resort y la costa de Rosarito a la mano.",
+    ubicacionItems: [
+      {
+        icon: MapPin,
+        title: "Fraccionamiento Punta Azul, Lienzo Charro",
+        description: "Dentro de la zona de Lienzo Charro, en Playas de Rosarito, con acceso controlado y áreas comunes compartidas.",
+      },
+      {
+        icon: Car,
+        title: "Corredor costero hacia Tijuana y la frontera",
+        description: "Ubicación en Rosarito, con conexión por la carretera costera hacia Playas de Tijuana y los cruces internacionales.",
+      },
+      {
+        icon: Waves,
+        title: "Playas y restaurantes de Rosarito cerca",
+        description: "A poca distancia de las playas de Rosarito y de una oferta amplia de restaurantes y comercios de la zona.",
+      },
+    ],
+    mapEmbedSrc:
+      "https://maps.google.com/maps?q=Lienzo%20Charro%2C%20Playas%20de%20Rosarito%2C%20Baja%20California&z=13&output=embed",
+    mapCaption: "Ubicación aproximada (Lienzo Charro, Rosarito). La dirección exacta se comparte al agendar tu cita.",
+
+    espaciosHeading: "Diseño contemporáneo en 3 niveles",
+    espaciosSubheading: "157 m² de construcción sobre 120 m² de terreno, casa nueva con roof deck propio.",
+    espaciosItems: [
+      {
+        icon: BedDouble,
+        title: "3 Recámaras + 4 Baños",
+        description: "La recámara principal está en el segundo nivel, con baño completo y vestidor propio.",
+      },
+      {
+        icon: Building2,
+        title: "Concepto abierto de doble altura",
+        description: "Sala con techo de doble altura, cocina con isla y comedor integrado en el primer nivel, con balcón en el segundo.",
+      },
+      {
+        icon: Waves,
+        title: "Roof deck con vista al mar",
+        description: "Terraza propia en la azotea con vista hacia el Pacífico a la distancia, con orientación poniente para el atardecer.",
+      },
+      {
+        icon: Warehouse,
+        title: "Fraccionamiento tipo resort",
+        description: "Alberca, jacuzzi, sauna, gimnasio, canchas de tenis, salón de eventos, restaurantes, áreas infantiles y seguridad 24/7.",
+      },
+      {
+        icon: Car,
+        title: "Cochera techada para 2 autos",
+        description: "Casa nueva (0 años de antigüedad), con 2 estacionamientos techados y cuarto de lavado en la planta baja.",
+      },
+    ],
+
+    formasDePago: [
+      { icon: Percent, label: "Financiamiento Directo" },
+      { icon: Landmark, label: "Crédito Bancario" },
+      { icon: Banknote, label: "Efectivo" },
+    ],
+
+    contactoHeading: "Agenda tu visita y conoce Amatista, Punta Azul en persona.",
+    contactoSubheading:
+      "Financiamiento directo a 5 años (10% anual), sin trámite bancario — o si prefieres, te ayudamos a tramitar tu crédito bancario sin costo.",
+    whatsappNumber: WHATSAPP_NUMBER,
+    whatsappMessage:
+      "Hola, me interesa la casa Amatista en Punta Azul, Rosarito, de $295,000 USD. Quiero agendar una visita con el asesor.",
+
+    disclaimer:
+      "Precio expresado en dólares americanos (USD). Propiedad en construcción: las fotos incluyen renders de diseño y avance de obra real; los acabados finales pueden variar respecto a los renders. Cuota de mantenimiento del fraccionamiento: $150 USD/mes, incluye acceso a las amenidades. Precio, disponibilidad y condiciones de financiamiento están sujetos a cambio sin previo aviso.",
   },
 ]
 
