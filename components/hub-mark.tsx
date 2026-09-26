@@ -5,9 +5,14 @@
 // la casa a opacidad completa, las líneas de conexión y los nodos en menor
 // opacidad para que el ojo lea primero "casa" y luego "conectada a algo" —
 // así funciona igual de bien dentro del badge emerald del navbar que sobre
-// fondo claro u oscuro. (El favicon en public/icon.svg usa una versión sin
-// líneas a propósito: a 32px las líneas finas se pierden; ver A-Usage.dc.html
-// en el canvas de diseño para el razonamiento completo.)
+// fondo claro u oscuro.
+//
+// Uso: a 40px o más (navbar, footer, fondos decorativos) las líneas finas se
+// leen bien y la marca completa comunica "casa conectada a servicios". Por
+// debajo de eso (favicon, marca de agua sobre fotos) las líneas de 2px se
+// pierden y los 3 nodos quedan flotando sin conexión visible — en vez de
+// leerse como parte del ícono, se ven como manchas sueltas junto a la casa.
+// Para esos usos pequeños, usar HubMarkSimple (solo la casa, sin nodos).
 export function HubMark({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 64 64" aria-hidden="true" className={className} fill="none">
@@ -21,6 +26,20 @@ export function HubMark({ className }: { className?: string }) {
       <circle cx="55" cy="17" r="5" fill="currentColor" opacity="0.55" />
       <circle cx="59" cy="36" r="5" fill="currentColor" opacity="0.55" />
       <circle cx="55" cy="53" r="5" fill="currentColor" opacity="0.55" />
+    </svg>
+  )
+}
+
+// Variante reducida de HubMark: solo la silueta de la casa, sin los nodos ni
+// las líneas de conexión. Pensada para renders pequeños (favicon, marca de
+// agua sobre fotografías) donde la versión completa se ve como manchas
+// sueltas en vez de un ícono legible. Mismo viewBox y posición que HubMark
+// para que ambas versiones compartan proporciones si se usan una junto a otra.
+export function HubMarkSimple({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 64" aria-hidden="true" className={className} fill="none">
+      <polygon points="20,32 32,22 44,32" fill="currentColor" />
+      <rect x="22" y="32" width="20" height="16" fill="currentColor" />
     </svg>
   )
 }
