@@ -8,8 +8,10 @@ import { PropertyCard } from "@/components/property-card"
 import { Reveal } from "@/components/reveal"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingButtons } from "@/components/floating-buttons"
+import { AlineChat } from "@/components/aline-chat"
 import { GENERAL_WHATSAPP_URL } from "@/lib/site"
 import { properties } from "@/lib/properties"
+
 
 export default function Page() {
   return (
@@ -19,28 +21,38 @@ export default function Page() {
         <HubHero />
         <HubTrustBar />
 
+
         <HubWhyUs />
+
 
         <section id="propiedades" className="scroll-mt-20 bg-slate-50 py-20 sm:py-24">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <h2 className="text-balance text-center text-3xl font-extrabold text-slate-800 sm:text-4xl">
+            <h2 className="text-balance text-center text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Propiedades disponibles
             </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-              Cada propiedad tiene su propia página con galería, ubicación y opciones de pago.
+            <p className="mx-auto mt-4 max-w-xl text-center text-slate-600">
+              Selecciona la que más te interese y tu asesor te contacta de inmediato.
             </p>
-
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {properties.map((property) => (
-                <PropertyCard key={property.slug} property={property} />
+            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {properties.map((p) => (
+                <Reveal key={p.id}>
+                  <PropertyCard property={p} />
+                </Reveal>
               ))}
             </div>
+          </div>
+        </section>
 
-            <Reveal delay={0.1} className="mt-8">
-              <div className="rounded-3xl border border-dashed border-emerald-200 bg-emerald-50/60 p-8 text-center">
-                <h3 className="text-lg font-bold text-slate-800">¿No encuentras lo que buscas?</h3>
-                <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
-                  Este directorio va sumando propiedades. Cuéntale a tu asesor qué necesitas — comprar
+
+        <section className="bg-white py-20 sm:py-24">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6">
+            <Reveal>
+              <div className="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 p-10 text-center shadow-xl">
+                <h2 className="text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                  ¿No encontraste lo que buscas?
+                </h2>
+                <p className="mx-auto mt-4 max-w-lg text-slate-300">
+                  Cuéntale a tu asesor qué necesitas — ya sea que estés buscando una propiedad
                   en otra zona, vender tu propiedad o rentar — y te contacta directo.
                 </p>
                 <a
@@ -56,12 +68,15 @@ export default function Page() {
           </div>
         </section>
 
+
         <HubHowItWorks />
+
 
         <HubCtaBand />
       </main>
       <SiteFooter />
       <FloatingButtons />
+      <AlineChat />
     </>
   )
 }
