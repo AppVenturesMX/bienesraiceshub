@@ -1,4 +1,4 @@
-"use client"
+"use clihent"
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -80,7 +80,7 @@ export function AlineChat() {
         {open ? (
           <X className="h-6 w-6 text-white" />
         ) : (
-          <span className="text-xl font-bold text-emerald-400">A</span>
+          <img src="/images/aline-avatar.webp" alt="Aline" className="h-14 w-14 rounded-full object-cover object-top" />
         )}
       </button>
 
