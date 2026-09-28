@@ -4,19 +4,40 @@ import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Send } from "lucide-react"
 
-const ALINE_SYSTEM = `Eres Aline, asesora de bienes raíces de BienesRaícesHub en Baja California, México.
-Tu misión: ayudar a compradores, vendedores y arrendadores a encontrar la propiedad ideal, precalificarlos para crédito hipotecario y agendar visitas.
+const ALINE_SYSTEM = `Eres Aline, asesora experta de BienesRaícesHub en Baja California, México.
+Tu misión: ayudar a compradores a encontrar la propiedad ideal, precalificarlos para crédito hipotecario y agendar visitas.
 
-Propiedades disponibles:
-- Granizo, Playas de Tijuana: residencia 3 rec, 2 baños, 120m², jardín, $285,000 USD
-- Rosarito Centro: depto 2 rec, 1 baño, 75m², vista al mar, $148,000 USD
-- Valle de Guadalupe: terreno 1,500m², uso mixto, $95,000 USD
+PROPIEDADES DISPONIBLES EN CATÁLOGO:
 
-Responde siempre en español, de manera cálida y profesional.
-Haz máximo 1-2 preguntas por mensaje para entender las necesidades del cliente.
-Si el cliente está listo, ofrece agendar visita vía WhatsApp: +52 1 664 120 0764
-Mantén respuestas cortas (máx 3 oraciones).
-No inventes propiedades que no están en la lista.`
+1. GRANIZO — Playas de Tijuana · Sección Monumental
+   Slug: granizo-playas-tijuana | Estado: DISPONIBLE
+   Precio: $439,000 USD
+   3 recámaras (convertible a 4) | Alta plusvalía y potencial comercial
+   Amenidades: estacionamiento techado, patios frontal y trasero, cisterna de concreto con bomba, tanque estacionario, boiler Bosch, ventiladores de techo, chimenea
+   Descripción: Residencia en Sección Monumental con alta plusvalía y viabilidad comercial.
+
+2. ARRECIFE — San Antonio del Mar · Fraccionamiento Arrecife, Tijuana
+   Slug: arrecife-san-antonio-del-mar | Estado: DISPONIBLE
+   Precio: $380,000 USD
+   4 recámaras | 4.5 baños | 410 m² construcción | 182 m² terreno
+   Vista panorámica al Océano Pacífico en 3 niveles, frente al mar
+   Amenidades: garage triple doble acceso, 2 chimeneas de piedra volcánica, puertas de madera tallada a mano, AC en toda la casa, club privado con alberca/tenis/deportes, seguridad 24/7
+
+3. AMATISTA — Punta Azul · Lienzo Charro, Rosarito
+   Slug: amatista-punta-azul | Estado: DISPONIBLE
+   Precio: $295,000 USD
+   3 recámaras | 4 baños | 157 m² construcción | 120 m² terreno
+   Casa nueva 3 niveles con roof deck y vista al mar
+   Amenidades: roof deck privado, garage 2 autos techado, cuarto de lavado, alberca, jacuzzi, sauna, gym, tenis, seguridad 24/7
+   Financiamiento directo: 10% anual, plazos a 5 años | Mantenimiento: $150 USD/mes
+
+REGLAS:
+- Responde SIEMPRE en español, de manera cálida y profesional.
+- Haz máximo 1-2 preguntas por mensaje para entender las necesidades del cliente.
+- NO inventes propiedades que no estén en esta lista.
+- Si el cliente está listo para visitar, agenda vía WhatsApp: +52 1 664 120 0764
+- Mantén respuestas cortas (máx 3-4 oraciones).
+- Si preguntan por precio, m², recámaras o ubicación, da los datos exactos del catálogo.`
 
 const WA_URL = "https://wa.me/526641200764?text=Hola%2C%20me%20interesa%20una%20propiedad%20en%20Baja%20California"
 
@@ -31,51 +52,34 @@ interface Message {
   content: string
 }
 
-export function AlineChat() {
-  const [open, setOpen] = useState(false)
+export default function AlineChat() {
   const [showPopup, setShowPopup] = useState(false)
+  const [showChat, setShowChat] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (open && messages.length === 0) {
-      setMessages([{
-        role: "assistant",
-        content: "¡Hola! Soy Aline 👋 ¿Estás buscando comprar, rentar o tienes una propiedad para vender?"
-      }])
-    }
-  }, [open])
-
-  useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
-  const handleButtonClick = () => {
-    if (open) {
-      setOpen(false)
-      setShowPopup(false)
-    } else {
-      setShowPopup(prev => !prev)
-    }
-  }
-
   const openChat = () => {
     setShowPopup(false)
-    setOpen(true)
-  }
-
-  const openWhatsApp = () => {
-    setShowPopup(false)
-    window.open(WA_URL, "_blank")
+    setShowChat(true)
+    if (messages.length === 0) {
+      setMessages([{
+        role: "assistant",
+        content: "¡Hola! Soy Aline, tu asesora de BienesRaícesHub 🏡 Tenemos propiedades increíbles en Playas de Tijuana, San Antonio del Mar y Rosarito. ¿Qué tipo de propiedad estás buscando?"
+      }])
+    }
   }
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return
-    const userMessage: Message = { role: "user", content: input }
-    const updated = [...messages, userMessage]
-    setMessages(updated)
+    const userMsg: Message = { role: "user", content: input.trim() }
+    const newMessages = [...messages, userMsg]
+    setMessages(newMessages)
     setInput("")
     setLoading(true)
     try {
@@ -86,14 +90,14 @@ export function AlineChat() {
           model: "claude-haiku-4-5-20251001",
           max_tokens: 300,
           system: ALINE_SYSTEM,
-          messages: updated,
-        }),
+          messages: newMessages.map(m => ({ role: m.role, content: m.content }))
+        })
       })
       const data = await res.json()
-      const reply = data?.content?.[0]?.text ?? "Lo siento, ocurrió un error."
+      const reply = data?.content?.[0]?.text ?? "Lo siento, hubo un error. Intenta de nuevo."
       setMessages(prev => [...prev, { role: "assistant", content: reply }])
     } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: "Error de conexión. Intenta de nuevo." }])
+      setMessages(prev => [...prev, { role: "assistant", content: "Error de conexión. Por favor intenta de nuevo." }])
     } finally {
       setLoading(false)
     }
@@ -101,66 +105,120 @@ export function AlineChat() {
 
   return (
     <>
+      {/* Floating Button */}
+      <button
+        aria-label="Contactar a Aline"
+        onClick={() => { setShowPopup(p => !p); setShowChat(false) }}
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full px-4 py-3 text-white shadow-2xl font-semibold text-sm"
+        style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}
+      >
+        <span className="text-lg">💎</span>
+        <span>Habla con Aline</span>
+      </button>
+
+      {/* Popup menu */}
+      <AnimatePresence>
+        {showPopup && !showChat && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.18 }}
+            className="fixed bottom-20 right-6 z-50 flex flex-col gap-2 items-end"
+          >
+            <button
+              onClick={openChat}
+              className="flex items-center gap-2 rounded-full px-5 py-3 text-white text-sm font-semibold shadow-xl"
+              style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}
+            >
+              <span>💬</span>
+              <span>Chat con Aline</span>
+            </button>
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full px-5 py-3 text-white text-sm font-semibold shadow-xl"
+              style={{ background: "#25D366" }}
+            >
+              <WhatsAppIcon />
+              <span>Chat por WhatsApp</span>
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Chat Panel */}
       <AnimatePresence>
-        {open && (
+        {showChat && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 30, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-4 z-50 w-80 rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+            exit={{ opacity: 0, y: 30, scale: 0.97 }}
+            transition={{ duration: 0.22 }}
+            className="fixed bottom-20 right-6 z-50 w-80 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            style={{ height: 480, background: "#0f0f1a" }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-emerald-700 to-emerald-600 px-4 py-3 flex items-center gap-3">
-              <img src="/images/aline-avatar.webp" alt="Aline" className="h-9 w-9 rounded-full object-cover object-top" />
-              <div className="flex-1">
-                <p className="text-white font-semibold text-sm">Aline</p>
-                <p className="text-emerald-200 text-xs">Asesora BienesRaícesHub</p>
+            <div className="flex items-center justify-between px-4 py-3" style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center text-white text-sm font-bold">A</div>
+                <div>
+                  <p className="text-white text-sm font-semibold leading-none">Aline</p>
+                  <p className="text-gray-400 text-xs">Asesora BienesRaícesHub</p>
+                </div>
               </div>
-              <button
-                onClick={openWhatsApp}
-                className="flex items-center gap-1.5 bg-white/20 hover:bg-white/30 text-white text-xs font-medium px-2.5 py-1.5 rounded-full transition-colors"
-                title="Continuar en WhatsApp"
-              >
-                <WhatsAppIcon />
-                <span>WhatsApp</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <a href={WA_URL} target="_blank" rel="noopener noreferrer" title="WhatsApp" className="hover:opacity-80 transition-opacity">
+                  <WhatsAppIcon />
+                </a>
+                <button onClick={() => setShowChat(false)} className="text-gray-400 hover:text-white transition-colors">
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
             </div>
 
             {/* Messages */}
-            <div className="bg-zinc-900 h-64 overflow-y-auto p-3 flex flex-col gap-2">
+            <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[80%] rounded-xl px-3 py-2 text-sm ${
-                    m.role === "user"
-                      ? "bg-emerald-600 text-white"
-                      : "bg-zinc-800 text-zinc-100"
-                  }`}>
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-snug ${
+                      m.role === "user"
+                        ? "text-white rounded-br-sm"
+                        : "text-gray-100 rounded-bl-sm"
+                    }`}
+                    style={m.role === "user" ? { background: "linear-gradient(135deg,#6366f1,#8b5cf6)" } : { background: "#1e1e32" }}
+                  >
                     {m.content}
                   </div>
                 </div>
               ))}
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-zinc-800 text-zinc-400 rounded-xl px-3 py-2 text-sm">Escribiendo...</div>
+                  <div className="rounded-2xl rounded-bl-sm px-3 py-2 text-sm text-gray-400" style={{ background: "#1e1e32" }}>
+                    <span className="animate-pulse">Aline está escribiendo…</span>
+                  </div>
                 </div>
               )}
               <div ref={bottomRef} />
             </div>
 
             {/* Input */}
-            <div className="bg-zinc-800 px-3 py-2 flex gap-2">
+            <div className="p-3 border-t border-gray-800 flex gap-2">
               <input
-                className="flex-1 bg-zinc-700 text-white text-sm rounded-lg px-3 py-2 outline-none placeholder:text-zinc-400"
-                placeholder="Escribe un mensaje..."
+                className="flex-1 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:ring-1 focus:ring-purple-500"
+                style={{ background: "#1e1e32" }}
+                placeholder="Escribe tu mensaje…"
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && sendMessage()}
               />
               <button
                 onClick={sendMessage}
-                disabled={loading}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg px-3 py-2 transition-colors disabled:opacity-50"
+                disabled={!input.trim() || loading}
+                className="rounded-xl px-3 py-2 text-white disabled:opacity-40 transition-opacity"
+                style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6)" }}
               >
                 <Send className="h-4 w-4" />
               </button>
@@ -168,60 +226,6 @@ export function AlineChat() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Mini Popup */}
-      <AnimatePresence>
-        {showPopup && !open && (
-          <motion.div
-            initial={{ opacity: 0, y: 8, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.95 }}
-            className="fixed bottom-24 right-4 z-50 w-52 rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-zinc-900"
-          >
-            <button
-              onClick={openChat}
-              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-zinc-800 transition-colors text-left border-b border-zinc-700"
-            >
-              <span className="text-xl">💬</span>
-              <span className="text-white text-sm font-medium">Chat con Aline</span>
-            </button>
-            <button
-              onClick={openWhatsApp}
-              className="w-full flex items-center gap-3 px-4 py-3 hover:bg-zinc-800 transition-colors text-left"
-            >
-              <WhatsAppIcon />
-              <span className="text-white text-sm font-medium">WhatsApp directo</span>
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Floating Button */}
-      <motion.button
-        onClick={handleButtonClick}
-        animate={{ scale: [1, 1.06, 1] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        className="fixed bottom-6 right-4 z-50 h-16 w-16 rounded-full shadow-lg shadow-emerald-900/40 overflow-hidden border-2 border-emerald-500 bg-zinc-900 flex items-center justify-center"
-        aria-label="Contactar a Aline"
-      >
-        <AnimatePresence mode="wait">
-          {open ? (
-            <motion.span key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }}>
-              <X className="h-6 w-6 text-white" />
-            </motion.span>
-          ) : (
-            <motion.img
-              key="avatar"
-              src="/images/aline-avatar.webp"
-              alt="Aline"
-              className="h-14 w-14 rounded-full object-cover object-top"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            />
-          )}
-        </AnimatePresence>
-      </motion.button>
     </>
   )
 }
