@@ -10,34 +10,30 @@ Tu misión: ayudar a compradores a encontrar la propiedad ideal, precalificarlos
 PROPIEDADES DISPONIBLES EN CATÁLOGO:
 
 1. GRANIZO — Playas de Tijuana · Sección Monumental
-   Slug: granizo-playas-tijuana | Estado: DISPONIBLE
-   Precio: $439,000 USD
+   Estado: DISPONIBLE | Precio: $439,000 USD
    3 recámaras (convertible a 4) | Alta plusvalía y potencial comercial
-   Amenidades: estacionamiento techado, patios frontal y trasero, cisterna de concreto con bomba, tanque estacionario, boiler Bosch, ventiladores de techo, chimenea
-   Descripción: Residencia en Sección Monumental con alta plusvalía y viabilidad comercial.
+   Amenidades: estacionamiento techado, patios frontal y trasero, cisterna con bomba, boiler Bosch, ventiladores, chimenea
 
 2. ARRECIFE — San Antonio del Mar · Fraccionamiento Arrecife, Tijuana
-   Slug: arrecife-san-antonio-del-mar | Estado: DISPONIBLE
-   Precio: $380,000 USD
+   Estado: DISPONIBLE | Precio: $380,000 USD
    4 recámaras | 4.5 baños | 410 m² construcción | 182 m² terreno
-   Vista panorámica al Océano Pacífico en 3 niveles, frente al mar
-   Amenidades: garage triple doble acceso, 2 chimeneas de piedra volcánica, puertas de madera tallada a mano, AC en toda la casa, club privado con alberca/tenis/deportes, seguridad 24/7
+   Vista panorámica al Pacífico, 3 niveles, frente al mar
+   Amenidades: garage triple, 2 chimeneas volcánicas, AC, club privado (alberca/tenis), seguridad 24/7
 
 3. AMATISTA — Punta Azul · Lienzo Charro, Rosarito
-   Slug: amatista-punta-azul | Estado: DISPONIBLE
-   Precio: $295,000 USD
+   Estado: DISPONIBLE | Precio: $295,000 USD
    3 recámaras | 4 baños | 157 m² construcción | 120 m² terreno
    Casa nueva 3 niveles con roof deck y vista al mar
-   Amenidades: roof deck privado, garage 2 autos techado, cuarto de lavado, alberca, jacuzzi, sauna, gym, tenis, seguridad 24/7
+   Amenidades: roof deck privado, garage 2 autos, alberca, jacuzzi, sauna, gym, seguridad 24/7
    Financiamiento directo: 10% anual, plazos a 5 años | Mantenimiento: $150 USD/mes
 
 REGLAS:
-- Responde SIEMPRE en español, de manera cálida y profesional.
-- Haz máximo 1-2 preguntas por mensaje para entender las necesidades del cliente.
-- NO inventes propiedades que no estén en esta lista.
-- Si el cliente está listo para visitar, agenda vía WhatsApp: +52 1 664 120 0764
-- Mantén respuestas cortas (máx 3-4 oraciones).
-- Si preguntan por precio, m², recámaras o ubicación, da los datos exactos del catálogo.`
+- Responde SIEMPRE en español, cálida y profesional.
+- Máximo 1-2 preguntas por mensaje.
+- NO inventes propiedades fuera de esta lista.
+- Para visitas, agenda vía WhatsApp: +52 1 664 120 0764
+- Respuestas cortas (máx 3-4 oraciones).
+- Da datos exactos del catálogo: precio, m², recámaras, ubicación.`
 
 const WA_URL = "https://wa.me/526641200764?text=Hola%2C%20me%20interesa%20una%20propiedad%20en%20Baja%20California"
 
@@ -70,7 +66,7 @@ export default function AlineChat() {
     if (messages.length === 0) {
       setMessages([{
         role: "assistant",
-        content: "¡Hola! Soy Aline, tu asesora de BienesRaícesHub 🏡 Tenemos propiedades increíbles en Playas de Tijuana, San Antonio del Mar y Rosarito. ¿Qué tipo de propiedad estás buscando?"
+        content: "¡Hola! Soy Aline, tu asesora de BienesRaícesHub 🏡 Tenemos propiedades en Playas de Tijuana, San Antonio del Mar y Rosarito. ¿Qué tipo de propiedad buscas?"
       }])
     }
   }
@@ -97,7 +93,7 @@ export default function AlineChat() {
       const reply = data?.content?.[0]?.text ?? "Lo siento, hubo un error. Intenta de nuevo."
       setMessages(prev => [...prev, { role: "assistant", content: reply }])
     } catch {
-      setMessages(prev => [...prev, { role: "assistant", content: "Error de conexión. Por favor intenta de nuevo." }])
+      setMessages(prev => [...prev, { role: "assistant", content: "Error de conexión. Intenta de nuevo." }])
     } finally {
       setLoading(false)
     }
@@ -105,7 +101,6 @@ export default function AlineChat() {
 
   return (
     <>
-      {/* Floating Button */}
       <button
         aria-label="Contactar a Aline"
         onClick={() => { setShowPopup(p => !p); setShowChat(false) }}
@@ -116,7 +111,6 @@ export default function AlineChat() {
         <span>Habla con Aline</span>
       </button>
 
-      {/* Popup menu */}
       <AnimatePresence>
         {showPopup && !showChat && (
           <motion.div
@@ -148,7 +142,6 @@ export default function AlineChat() {
         )}
       </AnimatePresence>
 
-      {/* Chat Panel */}
       <AnimatePresence>
         {showChat && (
           <motion.div
@@ -159,7 +152,6 @@ export default function AlineChat() {
             className="fixed bottom-20 right-6 z-50 w-80 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
             style={{ height: 480, background: "#0f0f1a" }}
           >
-            {/* Header */}
             <div className="flex items-center justify-between px-4 py-3" style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}>
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center text-white text-sm font-bold">A</div>
@@ -178,16 +170,11 @@ export default function AlineChat() {
               </div>
             </div>
 
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
               {messages.map((m, i) => (
                 <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-snug ${
-                      m.role === "user"
-                        ? "text-white rounded-br-sm"
-                        : "text-gray-100 rounded-bl-sm"
-                    }`}
+                    className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-snug ${m.role === "user" ? "text-white rounded-br-sm" : "text-gray-100 rounded-bl-sm"}`}
                     style={m.role === "user" ? { background: "linear-gradient(135deg,#6366f1,#8b5cf6)" } : { background: "#1e1e32" }}
                   >
                     {m.content}
@@ -204,7 +191,6 @@ export default function AlineChat() {
               <div ref={bottomRef} />
             </div>
 
-            {/* Input */}
             <div className="p-3 border-t border-gray-800 flex gap-2">
               <input
                 className="flex-1 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:ring-1 focus:ring-purple-500"
