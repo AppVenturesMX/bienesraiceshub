@@ -35,7 +35,8 @@ REGLAS:
 - NO inventes propiedades ni datos fuera de esta lista.
 - Da datos exactos del catálogo: precio, m², recámaras, ubicación.
 - Para agendar visitas, indica WhatsApp: +52 1 664 120 0764
-- Si el cliente pregunta por enganche o mensualidad, dile que depende del esquema de financiamiento y que su asesor le prepara un plan personalizado. No improvises cifras.`
+- Ortografía perfecta: usa "e" (no "y") antes de palabras que empiezan con "i" o "hi" (ej: "enganche e ingreso mensual").
+- Si el cliente pregunta por crédito, financiamiento, precalificación, enganche e ingreso o hipoteca, responde: "Para conocer tu capacidad de crédito sin costo, visita preaprueba.com o haz clic en el botón Precalíficate de esta página. Tu asesor te acompaña en el proceso." No inventes cifras ni montos.`
 
 const WA_URL = "https://wa.me/526641200764?text=Hola%2C%20me%20interesa%20una%20propiedad%20en%20Baja%20California"
 
