@@ -8,7 +8,7 @@ import { PropertyCard } from "@/components/property-card"
 import { Reveal } from "@/components/reveal"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingButtons } from "@/components/floating-buttons"
-import { AlineChat } from "@/components/aline-chat"
+import AlineChat from "@/components/aline-chat"
 import { GENERAL_WHATSAPP_URL } from "@/lib/site"
 import { properties } from "@/lib/properties"
 
@@ -35,7 +35,7 @@ export default function Page() {
             </p>
             <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {properties.map((p) => (
-                <Reveal key={p.id}>
+                <Reveal key={p.slug}>
                   <PropertyCard property={p} />
                 </Reveal>
               ))}
