@@ -170,7 +170,7 @@ export default function AlineChat() {
           >
             <div className="flex items-center justify-between px-4 py-3" style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}>
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center text-white text-sm font-bold">A</div>
+                <img src="/images/aline-avatar.webp" alt="Aline" className="h-9 w-9 rounded-full object-cover object-top" />
                 <div>
                   <p className="text-white text-sm font-semibold leading-none">Aline</p>
                   <p className="text-gray-400 text-xs">Asesora BienesRaícesHub</p>
