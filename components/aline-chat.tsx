@@ -101,15 +101,31 @@ export default function AlineChat() {
 
   return (
     <>
-      <button
-        aria-label="Contactar a Aline"
+      <motion.button
         onClick={() => { setShowPopup(p => !p); setShowChat(false) }}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full px-4 py-3 text-white shadow-2xl font-semibold text-sm"
-        style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}
+        animate={{ scale: [1, 1.06, 1] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full shadow-lg shadow-emerald-900/40 overflow-hidden border-2 border-emerald-500 bg-zinc-900 flex items-center justify-center"
+        aria-label="Contactar a Aline"
       >
-        <span className="text-lg">💎</span>
-        <span>Habla con Aline</span>
-      </button>
+        <AnimatePresence mode="wait">
+          {showChat ? (
+            <motion.span key="close" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }}>
+              <X className="h-6 w-6 text-white" />
+            </motion.span>
+          ) : (
+            <motion.img
+              key="avatar"
+              src="/images/aline-avatar.webp"
+              alt="Aline"
+              className="h-14 w-14 rounded-full object-cover object-top"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+          )}
+        </AnimatePresence>
+      </motion.button>
 
       <AnimatePresence>
         {showPopup && !showChat && (
