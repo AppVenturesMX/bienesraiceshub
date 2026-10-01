@@ -8,7 +8,6 @@ import { PropertyCard } from "@/components/property-card"
 import { Reveal } from "@/components/reveal"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingButtons } from "@/components/floating-buttons"
-import AlineChat from "@/components/aline-chat"
 import { GENERAL_WHATSAPP_URL } from "@/lib/site"
 import { properties } from "@/lib/properties"
 
@@ -76,7 +75,6 @@ export default function Page() {
       </main>
       <SiteFooter />
       <FloatingButtons />
-      <AlineChat />
     </>
   )
 }
