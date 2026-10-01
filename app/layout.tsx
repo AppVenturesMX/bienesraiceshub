@@ -49,6 +49,16 @@ export default function RootLayout({
     <html lang="es">
       <body className="antialiased">
         {children}
+        <script
+          src="https://isis-vercel.vercel.app/isis-widget.js"
+          data-api="https://isis-vercel.vercel.app"
+          data-avatar="https://isis-vercel.vercel.app/isis-avatar.webp"
+          data-brand="BienesRaícesHub"
+          data-whatsapp="5216641200764"
+          data-catalog-url="/isis-catalog"
+          data-alma-url="https://preaprueba.com"
+          defer
+        />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
