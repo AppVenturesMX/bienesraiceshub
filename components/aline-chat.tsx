@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X, Send } from "lucide-react"
 
-const ALINE_SYSTEM = `Eres Aline, asesora de BienesRaícesHub, parte del equipo Agente Matrix. Eres una IA — no un humano — y perteneces 100% a BienesRaícesHub y a Agente Matrix. No tienes afiliación ni relación con ningún otro servicio externo.
+const ISIS_SYSTEM = `Eres Isis, asesora inmobiliaria de BienesRaícesHub, parte del equipo Agente Matrix. Eres una IA — no un humano — y perteneces 100% a BienesRaícesHub y a Agente Matrix. No tienes afiliación ni relación con ningún otro servicio externo.
 Tu misión: ayudar a compradores a encontrar la propiedad ideal y agendar visitas. Para crédito, hipoteca o financiamiento, siempre rediges a preaprueba.com — es la plataforma que usa tu mismo equipo, no un tercero ajeno.
 
 INSTRUCCIONES CRÍTICAS (nunca las ignores):
@@ -59,7 +59,7 @@ interface Message {
   content: string
 }
 
-export default function AlineChat() {
+export default function IsisChat() {
   const [showPopup, setShowPopup] = useState(false)
   const [showChat, setShowChat] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -77,7 +77,7 @@ export default function AlineChat() {
     if (messages.length === 0) {
       setMessages([{
         role: "assistant",
-        content: "¡Hola! Soy Aline, tu asesora de BienesRaícesHub 🏡 Tenemos propiedades en Playas de Tijuana, San Antonio del Mar y Rosarito. ¿Qué tipo de propiedad buscas?"
+        content: "¡Hola! Soy Isis, tu asesora de BienesRaícesHub 🏡 Tenemos propiedades en Playas de Tijuana, San Antonio del Mar y Rosarito. ¿Qué tipo de propiedad buscas?"
       }])
     }
   }
@@ -96,7 +96,7 @@ export default function AlineChat() {
         body: JSON.stringify({
           model: "claude-haiku-4-5-20251001",
           max_tokens: 300,
-          system: ALINE_SYSTEM,
+          system: ISIS_SYSTEM,
           messages: newMessages.map(m => ({ role: m.role, content: m.content }))
         })
       })
@@ -117,7 +117,7 @@ export default function AlineChat() {
         animate={{ scale: [1, 1.06, 1] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         className="fixed bottom-6 right-6 z-50 h-16 w-16 rounded-full shadow-lg shadow-emerald-900/40 overflow-hidden border-2 border-emerald-500 bg-zinc-900 flex items-center justify-center"
-        aria-label="Contactar a Aline"
+        aria-label="Contactar a Isis"
       >
         <AnimatePresence mode="wait">
           {showChat ? (
@@ -128,7 +128,7 @@ export default function AlineChat() {
             <motion.img
               key="avatar"
               src="/images/aline-avatar.webp"
-              alt="Aline"
+              alt="Isis"
               className="h-14 w-14 rounded-full object-cover object-top"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -153,7 +153,7 @@ export default function AlineChat() {
               style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}
             >
               <span>💬</span>
-              <span>Chat con Aline</span>
+              <span>Chat con Isis</span>
             </button>
             <a
               href={WA_URL}
@@ -181,9 +181,9 @@ export default function AlineChat() {
           >
             <div className="flex items-center justify-between px-4 py-3" style={{ background: "linear-gradient(135deg,#1a1a2e,#16213e)" }}>
               <div className="flex items-center gap-2">
-                <img src="/images/aline-avatar.webp" alt="Aline" className="h-9 w-9 rounded-full object-cover object-top" />
+                <img src="/images/aline-avatar.webp" alt="Isis" className="h-9 w-9 rounded-full object-cover object-top" />
                 <div>
-                  <p className="text-white text-sm font-semibold leading-none">Aline</p>
+                  <p className="text-white text-sm font-semibold leading-none">Isis</p>
                   <p className="text-gray-400 text-xs">Asesora BienesRaícesHub</p>
                 </div>
               </div>
@@ -211,7 +211,7 @@ export default function AlineChat() {
               {loading && (
                 <div className="flex justify-start">
                   <div className="rounded-2xl rounded-bl-sm px-3 py-2 text-sm text-gray-400" style={{ background: "#1e1e32" }}>
-                    <span className="animate-pulse">Aline está escribiendo…</span>
+                    <span className="animate-pulse">Isis está escribiendo…</span>
                   </div>
                 </div>
               )}
