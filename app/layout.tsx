@@ -58,7 +58,7 @@ export default function RootLayout({
           data-catalog-url="/isis-catalog"
           data-alma-url="https://preaprueba.com"
           data-emailjs-service="service_pz5aqzz"
-          data-emailjs-template="159bqrg"
+          data-emailjs-template="template_kyt29ma"
           data-emailjs-key="wSSGo0XmY23CNICP4"
           defer
         />
