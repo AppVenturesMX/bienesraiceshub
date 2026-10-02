@@ -56,6 +56,7 @@ export default function RootLayout({
           data-brand="BienesRaícesHub"
           data-whatsapp="5216641200764"
           data-catalog-url="/isis-catalog"
+          data-catalog-json="/isis-catalog-json"
           data-alma-url="https://preaprueba.com"
           data-emailjs-service="service_pz5aqzz"
           data-emailjs-template="template_kyt29ma"
