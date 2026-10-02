@@ -57,6 +57,9 @@ export default function RootLayout({
           data-whatsapp="5216641200764"
           data-catalog-url="/isis-catalog"
           data-alma-url="https://preaprueba.com"
+          data-emailjs-service="service_pz5aqzz"
+          data-emailjs-template="159bqrg"
+          data-emailjs-key="wSSGo0XmY23CNICP4"
           defer
         />
         {process.env.NODE_ENV === 'production' && <Analytics />}
