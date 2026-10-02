@@ -392,6 +392,111 @@ export const properties: Property[] = [
     disclaimer:
       "Precio expresado en dólares americanos (USD). Propiedad en construcción: las fotos incluyen renders de diseño y avance de obra real; los acabados finales pueden variar respecto a los renders. Cuota de mantenimiento del fraccionamiento: $150 USD/mes, incluye acceso a las amenidades. Precio, disponibilidad y condiciones de financiamiento están sujetos a cambio sin previo aviso.",
   },
+  {
+    slug: "departamento-20-de-noviembre",
+    status: "disponible",
+
+    locationBadge: "20 de Noviembre · Tijuana",
+    title:
+      "Departamento de 70 m² con cuarto de estudio, a minutos de Plaza Río, la Garita y Otay, en un conjunto privado de solo 4 torres en la colonia 20 de Noviembre.",
+    description:
+      "Departamento de 2 recámaras, cuarto de estudio y cochera techada en la colonia 20 de Noviembre, dentro de un conjunto privado con acceso controlado, a minutos de Plaza Río, la Garita y Otay.",
+    price: 2600000,
+    currency: "MXN",
+    heroImage: {
+      src: "/images/properties/departamento-20-de-noviembre/fachada.jpg",
+      alt: "Fachada del conjunto privado en la colonia 20 de Noviembre, Tijuana",
+    },
+
+    metaTitle: "Departamento en 20 de Noviembre, Tijuana | $2,600,000 MXN — Bienes Raíces Hub",
+    metaDescription:
+      "Departamento de 70 m², 2 recámaras y cuarto de estudio en la colonia 20 de Noviembre, Tijuana. A 5 minutos de Plaza Río, la Garita San Ysidro y Otay. Agenda tu cita con el asesor.",
+
+    gallery: [
+      { src: "/images/properties/departamento-20-de-noviembre/fachada.jpg", alt: "Fachada del conjunto privado en la colonia 20 de Noviembre, Tijuana" },
+      { src: "/images/properties/departamento-20-de-noviembre/sala-cocina.jpg", alt: "Sala de concepto abierto con vista a la cocina integral" },
+      { src: "/images/properties/departamento-20-de-noviembre/sala.jpg", alt: "Área de sala con ventana y vista al conjunto" },
+      { src: "/images/properties/departamento-20-de-noviembre/cocina.jpg", alt: "Cocina equipada con refrigerador, microondas y estufa" },
+      { src: "/images/properties/departamento-20-de-noviembre/recamara-principal.jpg", alt: "Recámara principal con clóset de espejo" },
+      { src: "/images/properties/departamento-20-de-noviembre/recamara-secundaria.jpg", alt: "Recámara secundaria con dos camas individuales" },
+      { src: "/images/properties/departamento-20-de-noviembre/recamara-vacia.jpg", alt: "Recámara con piso de madera y ventana" },
+      { src: "/images/properties/departamento-20-de-noviembre/estudio.jpg", alt: "Cuarto adicional, ideal como estudio u oficina en casa" },
+      { src: "/images/properties/departamento-20-de-noviembre/bano.jpg", alt: "Baño completo con regadera y tocador" },
+      { src: "/images/properties/departamento-20-de-noviembre/area-lavado.jpg", alt: "Área de lavado con tarja y conexiones" },
+    ],
+
+    ubicacionHeading: "Una ubicación que te ahorra tiempo cada día",
+    ubicacionSubheading: "A minutos de los puntos que más usas en tu día a día, sin perder horas en el tráfico.",
+    ubicacionItems: [
+      {
+        icon: Car,
+        title: "A 5 minutos de la Garita San Ysidro",
+        description:
+          "Cruce fronterizo hacia San Diego a unos 5 minutos en auto (según tráfico), para quienes cruzan con frecuencia.",
+      },
+      {
+        icon: MapPin,
+        title: "A 5 minutos de Plaza Río",
+        description:
+          "Zona Río y Plaza Río a unos 5 minutos, además de 3 minutos al Hipódromo y Plaza Galerías.",
+      },
+      {
+        icon: Briefcase,
+        title: "A 5 minutos de Otay",
+        description:
+          "Zona industrial y empresarial de Otay a unos 5 minutos, con hospitales, universidades y servicios cercanos.",
+      },
+    ],
+    mapEmbedSrc:
+      "https://maps.google.com/maps?q=20%20de%20Noviembre%2C%20Tijuana%2C%20Baja%20California&z=14&output=embed",
+    mapCaption: "Ubicación aproximada (Colonia 20 de Noviembre). La dirección exacta se comparte al agendar tu cita.",
+
+    espaciosHeading: "70 m² bien distribuidos",
+    espaciosSubheading: "Un conjunto privado de solo 4 torres, con espacios pensados para vivir o rentar.",
+    espaciosItems: [
+      {
+        icon: BedDouble,
+        title: "2 Recámaras + Cuarto de Estudio",
+        description:
+          "Recámaras con clóset y un cuarto adicional que puede funcionar como estudio, home office o tercera habitación.",
+      },
+      {
+        icon: Sofa,
+        title: "Cocina integral y área social",
+        description: "Cocina con barra y refrigerador incluido, además de sala y comedor en espacios independientes.",
+      },
+      {
+        icon: Warehouse,
+        title: "Cochera techada + visitas",
+        description: "Un cajón de estacionamiento techado para el departamento, más área de estacionamiento para visitas.",
+      },
+      {
+        icon: Droplets,
+        title: "Plus técnico",
+        description: "Cisterna de agua propia del conjunto, para no depender de los cortes de la red municipal.",
+      },
+      {
+        icon: Building2,
+        title: "Conjunto privado de 4 torres",
+        description: "Acceso controlado, portón eléctrico y administración profesional, en un conjunto de solo 4 torres.",
+      },
+    ],
+
+    formasDePago: [
+      { icon: Landmark, label: "Crédito Bancario" },
+      { icon: Building2, label: "Infonavit" },
+      { icon: Percent, label: "Cofinavit" },
+    ],
+
+    contactoHeading: "Agenda tu visita y conoce este departamento en 20 de Noviembre.",
+    contactoSubheading: "Descubre en persona la distribución, el conjunto privado y lo cerca que está de todo.",
+    whatsappNumber: WHATSAPP_NUMBER,
+    whatsappMessage:
+      "Hola, me interesa el departamento en 20 de Noviembre de $2,600,000 MXN. Quiero agendar una visita con el asesor.",
+
+    disclaimer:
+      "Precio expresado en pesos mexicanos (MXN). Cuota de mantenimiento del conjunto: $650 MXN/mes. Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
+  },
 ]
 
 export function getProperty(slug: string): Property | undefined {
