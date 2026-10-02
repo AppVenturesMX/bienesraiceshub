@@ -1,4 +1,4 @@
-import { Banknote, BedDouble, Briefcase, Car, Droplets, Landmark, Building2, MapPin, Percent, Sofa, Warehouse, Waves, type LucideIcon } from "lucide-react"
+import { Banknote, Bath, BedDouble, Briefcase, Car, ChefHat, Droplets, Landmark, Building2, MapPin, Percent, ShieldCheck, ShoppingBag, Sofa, Warehouse, Waves, type LucideIcon } from "lucide-react"
 import { buildWhatsAppUrl, WHATSAPP_NUMBER } from "@/lib/site"
 
 export type GaleriaImage = {
@@ -496,6 +496,117 @@ export const properties: Property[] = [
 
     disclaimer:
       "Precio expresado en pesos mexicanos (MXN). Cuota de mantenimiento del conjunto: $650 MXN/mes. Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
+  },
+  {
+    slug: "privada-verona-napoles",
+    status: "disponible",
+
+    locationBadge: "Verona Residencial · Tijuana",
+    title:
+      "Casa de 3 recámaras en el fraccionamiento privado Verona Residencial, con acceso controlado y seguridad 24 horas, en Tijuana.",
+    description:
+      "Casa de 110 m² de construcción sobre 140 m² de terreno, con 3 recámaras y 2.5 baños, dentro de una comunidad privada con acceso controlado y seguridad 24 horas.",
+    price: 3650000,
+    currency: "MXN",
+    heroImage: {
+      src: "/images/properties/privada-verona-napoles/fachada.jpg",
+      alt: "Fachada de la casa en Privada Verona Nápoles, Tijuana",
+    },
+
+    metaTitle: "Casa en Verona Residencial, Tijuana | $3,650,000 MXN — Bienes Raíces Hub",
+    metaDescription:
+      "Casa de 110 m² de construcción, 3 recámaras y 2.5 baños en el fraccionamiento privado Verona Residencial, Tijuana. Acceso controlado, seguridad 24 horas y áreas verdes. Agenda tu cita con el asesor.",
+
+    gallery: [
+      { src: "/images/properties/privada-verona-napoles/fachada.jpg", alt: "Fachada de la casa en Privada Verona Nápoles, Tijuana" },
+      { src: "/images/properties/privada-verona-napoles/sala.jpg", alt: "Amplia sala con excelente iluminación natural" },
+      { src: "/images/properties/privada-verona-napoles/comedor.jpg", alt: "Comedor junto a la cocina, con acceso directo al patio" },
+      { src: "/images/properties/privada-verona-napoles/cocina.jpg", alt: "Cocina integral con isla central y cubiertas de granito" },
+      { src: "/images/properties/privada-verona-napoles/recamara-principal.jpg", alt: "Recámara principal con aire acondicionado y amplio espacio" },
+      { src: "/images/properties/privada-verona-napoles/walk-in-closet.jpg", alt: "Walk-in clóset de la recámara principal con acceso al baño" },
+      { src: "/images/properties/privada-verona-napoles/bano.jpg", alt: "Baño completo con regadera y acabados modernos" },
+      { src: "/images/properties/privada-verona-napoles/recamara-secundaria-1.jpg", alt: "Recámara secundaria con amplio clóset integral" },
+      { src: "/images/properties/privada-verona-napoles/recamara-secundaria-2.jpg", alt: "Segunda recámara secundaria, luminosa y amplia" },
+      { src: "/images/properties/privada-verona-napoles/patio.jpg", alt: "Amplio patio, perfecto para reuniones, niños o mascotas" },
+      { src: "/images/properties/privada-verona-napoles/estacionamiento-visitas.jpg", alt: "Área techada de estacionamiento para visitas del fraccionamiento" },
+      { src: "/images/properties/privada-verona-napoles/areas-comunes.jpg", alt: "Áreas comunes y vialidades internas del fraccionamiento privado" },
+    ],
+
+    ubicacionHeading: "Una ubicación pensada para tu día a día",
+    ubicacionSubheading: "Verona Residencial combina la tranquilidad de una comunidad privada con una conectividad privilegiada hacia el resto de Tijuana.",
+    ubicacionItems: [
+      {
+        icon: Car,
+        title: "Rápido acceso a vialidades principales",
+        description:
+          "Conectividad privilegiada hacia las principales zonas y vialidades de Tijuana, sin alejarte de la ciudad.",
+      },
+      {
+        icon: ShoppingBag,
+        title: "Cerca de lo que usas cada día",
+        description:
+          "Cercanía a supermercados, escuelas, restaurantes y centros comerciales, para resolver tu día a día sin trasladarte lejos.",
+      },
+      {
+        icon: ShieldCheck,
+        title: "Entorno limpio, ordenado y familiar",
+        description:
+          "Una comunidad privada pensada para familias y profesionistas que buscan tranquilidad sin renunciar a la cercanía con la ciudad.",
+      },
+    ],
+    mapEmbedSrc:
+      "https://maps.google.com/maps?q=Verona%20Residencial%2C%20Tijuana%2C%20Baja%20California&z=13&output=embed",
+    mapCaption: "Ubicación aproximada (Verona Residencial). La dirección exacta se comparte al agendar tu cita.",
+
+    espaciosHeading: "110 m² construidos, pensados para tu familia",
+    espaciosSubheading: "Una casa de 3 recámaras en 140 m² de terreno, dentro de un fraccionamiento privado con acceso controlado.",
+    espaciosItems: [
+      {
+        icon: BedDouble,
+        title: "Recámara principal + 2 secundarias",
+        description:
+          "Recámara principal con aire acondicionado y amplio walk-in clóset; dos recámaras secundarias, cada una con clóset.",
+      },
+      {
+        icon: Bath,
+        title: "2 baños completos + medio baño",
+        description:
+          "Dos baños completos y un medio baño para visitas, distribuidos para la comodidad de toda la familia.",
+      },
+      {
+        icon: ChefHat,
+        title: "Cocina integral con isla central",
+        description:
+          "Cubiertas de granito y amplia sala-comedor con excelente iluminación natural, ideal para convivir en familia.",
+      },
+      {
+        icon: Car,
+        title: "Patio amplio + estacionamiento para 3 autos",
+        description: "Patio perfecto para reuniones, niños o mascotas, más estacionamiento para hasta 3 vehículos.",
+      },
+      {
+        icon: ShieldCheck,
+        title: "Fraccionamiento privado con seguridad 24h",
+        description:
+          "Acceso controlado, seguridad 24 horas y área de juegos infantiles, en una comunidad tranquila y de excelente nivel.",
+      },
+    ],
+
+    formasDePago: [
+      { icon: Landmark, label: "Crédito Bancario" },
+      { icon: Building2, label: "Infonavit / Cofinavit" },
+      { icon: ShieldCheck, label: "FOVISSSTE" },
+      { icon: Briefcase, label: "ISSFAM / Banjercito" },
+    ],
+
+    contactoHeading: "Agenda tu visita y conoce tu próximo hogar en Verona Residencial.",
+    contactoSubheading: "Descubre en persona la distribución, el fraccionamiento privado y la comodidad que te espera.",
+    whatsappNumber: WHATSAPP_NUMBER,
+    whatsappMessage:
+      "Hola, me interesa la casa en Privada Verona Nápoles de $3,650,000 MXN. Quiero agendar una visita con el asesor.",
+
+    disclaimer:
+      "Precio expresado en pesos mexicanos (MXN). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
   },
 ]
 
