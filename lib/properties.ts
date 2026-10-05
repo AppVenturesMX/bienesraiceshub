@@ -608,6 +608,104 @@ export const properties: Property[] = [
     disclaimer:
       "Precio expresado en pesos mexicanos (MXN). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
   },
+  {
+    slug: "san-antonio-del-mar-50m",
+    status: "disponible",
+
+    locationBadge: "San Antonio del Mar · Tijuana-Rosarito",
+    title:
+      "Residencia a 50 metros del mar, en una calle privada con solo dos casas, entre Tijuana y Rosarito.",
+    description:
+      "Casa de 3 recámaras y 2.5 baños en San Antonio del Mar, con vista al mar, seguridad 24/7 y acceso directo a la carretera de cuota, entre Tijuana y Rosarito.",
+    price: 7500000,
+    currency: "MXN",
+    heroImage: {
+      src: "/images/properties/san-antonio-del-mar-50m/fachada.jpg",
+      alt: "Fachada de la residencia en San Antonio del Mar, a 50 metros del mar",
+    },
+
+    metaTitle: "Casa a 50 metros del mar en San Antonio del Mar | $7,500,000 MXN — Bienes Raíces Hub",
+    metaDescription:
+      "Casa de 3 recámaras y 2.5 baños a 50 metros del mar, en una calle privada con solo dos casas, entre Tijuana y Rosarito. Seguridad 24/7 y acceso directo a la carretera de cuota. Agenda tu visita con el asesor.",
+
+    gallery: [
+      { src: "/images/properties/san-antonio-del-mar-50m/fachada.jpg", alt: "Fachada de la residencia en San Antonio del Mar, con cochera techada y acceso principal" },
+      { src: "/images/properties/san-antonio-del-mar-50m/sala.jpg", alt: "Sala amplia con sofá modular, con vista al comedor y la cocina" },
+      { src: "/images/properties/san-antonio-del-mar-50m/cocina.jpg", alt: "Cocina integral con gabinetes y barra de desayunador" },
+      { src: "/images/properties/san-antonio-del-mar-50m/comedor-sala.jpg", alt: "Comedor y sala integrados, con iluminación cálida de noche" },
+      { src: "/images/properties/san-antonio-del-mar-50m/recibidor.jpg", alt: "Recibidor de doble altura con acceso principal y guardarropa" },
+      { src: "/images/properties/san-antonio-del-mar-50m/recamara-principal.jpg", alt: "Recámara principal con acceso a terraza y silla colgante" },
+      { src: "/images/properties/san-antonio-del-mar-50m/recamara-secundaria.jpg", alt: "Recámara secundaria con closet y tocador" },
+      { src: "/images/properties/san-antonio-del-mar-50m/terraza.jpg", alt: "Terraza privada con sala exterior, ideal para convivir al aire libre" },
+      { src: "/images/properties/san-antonio-del-mar-50m/cocina-comedor.jpg", alt: "Área de cocina y comedor con barra de desayunador y luz natural" },
+    ],
+
+    ubicacionHeading: "A solo 50 metros del mar, entre Tijuana y Rosarito",
+    ubicacionSubheading: "Una calle privada, con muy poco tránsito y acceso directo a la carretera de cuota.",
+    ubicacionItems: [
+      {
+        icon: Waves,
+        title: "A 50 metros de la playa",
+        description: "Cercanía real al mar, en una de las pocas zonas costeras con este nivel de privacidad.",
+      },
+      {
+        icon: Car,
+        title: "Acceso directo a la carretera de cuota",
+        description: "Conectividad inmediata entre Tijuana y Rosarito, sin alejarte de ninguna de las dos ciudades.",
+      },
+      {
+        icon: ShieldCheck,
+        title: "Calle privada, con solo dos casas",
+        description: "Una zona residencial tranquila, con seguridad 24/7 y muy poco tránsito.",
+      },
+    ],
+    mapEmbedSrc: "https://maps.google.com/maps?q=San%20Antonio%20del%20Mar%2C%20Tijuana%2C%20Baja%20California&z=13&output=embed",
+    mapCaption: "Ubicación aproximada (San Antonio del Mar). La dirección exacta se comparte al agendar tu cita.",
+
+    espaciosHeading: "Espacios pensados para disfrutar la vista al mar",
+    espaciosSubheading: "3 recámaras y 2.5 baños, con un espacio flexible ideal para home office o estancia adicional.",
+    espaciosItems: [
+      {
+        icon: BedDouble,
+        title: "3 recámaras + espacio flexible",
+        description: "Recámara principal con acceso a terraza, dos recámaras secundarias y un espacio flexible, ideal para home office o estancia adicional.",
+      },
+      {
+        icon: Bath,
+        title: "2.5 baños",
+        description: "Dos baños completos y un medio baño para visitas, con acabados de calidad.",
+      },
+      {
+        icon: Waves,
+        title: "Vista al mar",
+        description: "Vista frontal al mar desde los espacios principales de la casa.",
+      },
+      {
+        icon: Car,
+        title: "2 espacios de estacionamiento",
+        description: "Cochera techada con capacidad para dos vehículos.",
+      },
+      {
+        icon: ShieldCheck,
+        title: "Seguridad 24/7",
+        description: "Fraccionamiento con vigilancia 24 horas, en una calle con muy poco tránsito.",
+      },
+    ],
+
+    formasDePago: [
+      { icon: Landmark, label: "Crédito Bancario" },
+      { icon: Banknote, label: "Efectivo" },
+    ],
+
+    contactoHeading: "Agenda tu visita y conoce esta residencia a 50 metros del mar.",
+    contactoSubheading: "Descubre en persona la cercanía al mar, la privacidad de la zona y la distribución de la casa.",
+    whatsappNumber: WHATSAPP_NUMBER,
+    whatsappMessage:
+      "Hola, me interesa la casa en San Antonio del Mar de $7,500,000 MXN, a 50 metros del mar. Quiero agendar una visita con el asesor.",
+
+    disclaimer:
+      "Precio expresado en pesos mexicanos (MXN). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
+  },
 ]
 
 export function getProperty(slug: string): Property | undefined {
