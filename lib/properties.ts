@@ -1,4 +1,4 @@
-import { Banknote, Bath, BedDouble, Briefcase, Car, ChefHat, Droplets, Landmark, Building2, MapPin, Percent, ShieldCheck, ShoppingBag, Sofa, Warehouse, Waves, type LucideIcon } from "lucide-react"
+import { Banknote, Bath, BedDouble, Briefcase, Car, ChefHat, Droplets, Landmark, Building2, MapPin, Percent, ShieldCheck, ShoppingBag, Sofa, Warehouse, Waves, WashingMachine, type LucideIcon } from "lucide-react"
 import { buildWhatsAppUrl, WHATSAPP_NUMBER } from "@/lib/site"
 
 export type GaleriaImage = {
@@ -705,6 +705,110 @@ export const properties: Property[] = [
 
     disclaimer:
       "Precio expresado en pesos mexicanos (MXN). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
+  },
+  {
+    slug: "privada-hacienda-del-mar",
+    status: "disponible",
+
+    locationBadge: "Hacienda Acueducto · Tijuana",
+    title:
+      "Casa de tres niveles con acceso controlado y un detalle de diseño poco común, en la Privada Hacienda del Mar.",
+    description:
+      "Casa de 3 recámaras y 2.5 baños distribuidos en tres niveles, dentro de una privada con acceso controlado en Hacienda Acueducto, Tijuana.",
+    price: 3250000,
+    currency: "MXN",
+    heroImage: {
+      src: "/images/properties/privada-hacienda-del-mar/fachada/image.jpg",
+      alt: "Fachada de la residencia en Privada Hacienda del Mar, Hacienda Acueducto",
+    },
+
+    metaTitle: "Casa en Privada Hacienda del Mar, Tijuana | $3,250,000 MXN — Bienes Raíces Hub",
+    metaDescription:
+      "Casa de 3 niveles, 3 recámaras y 2.5 baños en la Privada Hacienda del Mar, Hacienda Acueducto, Tijuana. Acceso controlado y área de lavado oculta tras una puerta tipo librero. Agenda tu cita con el asesor.",
+
+    gallery: [
+      { src: "/images/properties/privada-hacienda-del-mar/fachada/image.jpg", alt: "Fachada de la residencia en Privada Hacienda del Mar, Hacienda Acueducto" },
+      { src: "/images/properties/privada-hacienda-del-mar/acceso-privada/image.jpg", alt: "Acceso a la Privada Hacienda del Mar" },
+      { src: "/images/properties/privada-hacienda-del-mar/cochera/image.jpg", alt: "Cochera techada con capacidad para dos autos" },
+      { src: "/images/properties/privada-hacienda-del-mar/sala/image.jpg", alt: "Sala con acceso directo al patio" },
+      { src: "/images/properties/privada-hacienda-del-mar/comedor/image.jpg", alt: "Comedor junto a la cocina integral" },
+      { src: "/images/properties/privada-hacienda-del-mar/cocina/image.jpg", alt: "Cocina integral de lujo ampliada" },
+      { src: "/images/properties/privada-hacienda-del-mar/area-lavado-cerrada/image.jpg", alt: "Puerta tipo librero que da acceso al área de lavado oculta" },
+      { src: "/images/properties/privada-hacienda-del-mar/area-lavado-abierta/image.jpg", alt: "Área de lavado oculta, revelada tras la puerta tipo librero" },
+      { src: "/images/properties/privada-hacienda-del-mar/escalera/image.jpg", alt: "Escalera interior hacia los tres niveles de la casa" },
+      { src: "/images/properties/privada-hacienda-del-mar/recamara-secundaria/image.jpg", alt: "Una de las dos recámaras secundarias del segundo nivel" },
+      { src: "/images/properties/privada-hacienda-del-mar/tocador-master/image.jpg", alt: "Área de tocador de la recámara máster, con amplias ventanas" },
+      { src: "/images/properties/privada-hacienda-del-mar/bano-master/image.jpg", alt: "Baño completo de la recámara máster" },
+      { src: "/images/properties/privada-hacienda-del-mar/bano-completo/image.jpg", alt: "Baño completo del segundo nivel" },
+      { src: "/images/properties/privada-hacienda-del-mar/medio-bano/image.jpg", alt: "Medio baño de visitas en planta baja" },
+      { src: "/images/properties/privada-hacienda-del-mar/patio/image.jpg", alt: "Patio de servicio en la parte posterior de la casa" },
+    ],
+
+    ubicacionHeading: "Una privada tranquila en Hacienda Acueducto",
+    ubicacionSubheading: "Acceso controlado y buena conectividad hacia el resto de Tijuana.",
+    ubicacionItems: [
+      {
+        icon: ShieldCheck,
+        title: "Privada con acceso controlado",
+        description: "Calle privada dentro del fraccionamiento Hacienda del Mar, en un entorno residencial y tranquilo.",
+      },
+      {
+        icon: Car,
+        title: "Acceso directo a la carretera de cuota",
+        description: "Conectividad hacia la carretera de cuota Tijuana-Rosarito, sin alejarte del resto de la ciudad.",
+      },
+      {
+        icon: ShoppingBag,
+        title: "Cerca de escuelas y plazas comerciales",
+        description: "A poca distancia de escuelas, hospitales y centros comerciales de la zona de Hacienda Acueducto.",
+      },
+    ],
+    mapEmbedSrc: "https://maps.google.com/maps?q=Hacienda%20Acueducto%2C%20Tijuana%2C%20Baja%20California&z=14&output=embed",
+    mapCaption: "Ubicación aproximada (Hacienda Acueducto). La dirección exacta se comparte al agendar tu cita.",
+
+    espaciosHeading: "Tres niveles con un diseño pensado para el día a día",
+    espaciosSubheading: "3 recámaras y 2.5 baños, con un detalle de diseño poco común: área de lavado oculta tras una puerta tipo librero.",
+    espaciosItems: [
+      {
+        icon: ChefHat,
+        title: "Cocina integral de lujo ampliada",
+        description: "En el primer nivel, junto a la sala y el comedor independientes, además de un medio baño de visitas.",
+      },
+      {
+        icon: BedDouble,
+        title: "2 recámaras + recámara máster",
+        description: "Dos recámaras en el segundo nivel y una recámara máster en el tercer nivel, con área de tocador propia y amplias ventanas.",
+      },
+      {
+        icon: WashingMachine,
+        title: "Área de lavado oculta",
+        description: "Detrás de una puerta tipo librero, en el segundo nivel: un detalle de diseño que mantiene el espacio limpio y ordenado.",
+      },
+      {
+        icon: Bath,
+        title: "2.5 baños",
+        description: "Baño completo en el segundo nivel, baño completo con tocador en la recámara máster, y medio baño en planta baja.",
+      },
+      {
+        icon: Car,
+        title: "Estacionamiento para 2 autos",
+        description: "Cochera techada con capacidad para dos vehículos, con acceso directo a la privada.",
+      },
+    ],
+
+    formasDePago: [
+      { icon: Banknote, label: "Recurso Propio" },
+      { icon: Landmark, label: "Crédito Bancario" },
+    ],
+
+    contactoHeading: "Agenda tu visita y conoce esta casa en Privada Hacienda del Mar.",
+    contactoSubheading: "Descubre en persona la distribución en tres niveles y el detalle del área de lavado oculta.",
+    whatsappNumber: WHATSAPP_NUMBER,
+    whatsappMessage:
+      "Hola, me interesa la casa en Privada Hacienda del Mar (Hacienda Acueducto) de $3,250,000 MXN. Quiero agendar una visita con el asesor.",
+
+    disclaimer:
+      "Precio expresado en pesos mexicanos (MXN), más gastos de escrituración. Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso.",
   },
 ]
 
