@@ -1,0 +1,48 @@
+import { createHash, timingSafeEqual } from "node:crypto"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+
+// Acceso simple por contraseña para el panel de alta de propiedades. No es
+// un sistema de usuarios — es una sola persona o un equipo chico, así que
+// una contraseña compartida (variable de entorno) más una cookie de sesión
+// es suficiente, sin agregar ninguna dependencia nueva al proyecto.
+
+function sessionToken(password: string) {
+  return createHash("sha256").update(password).digest("hex")
+}
+
+export async function POST(request: NextRequest) {
+  const expected = process.env.ADMIN_PANEL_PASSWORD
+  if (!expected) {
+    return NextResponse.json(
+      { error: "Falta configurar ADMIN_PANEL_PASSWORD en las variables de entorno del proyecto." },
+      { status: 501 },
+    )
+  }
+
+  let password = ""
+  try {
+    const body = await request.json()
+    password = typeof body?.password === "string" ? body.password : ""
+  } catch {
+    return NextResponse.json({ error: "Cuerpo de la solicitud inválido." }, { status: 400 })
+  }
+
+  const expectedBuf = Buffer.from(sessionToken(expected))
+  const givenBuf = Buffer.from(sessionToken(password))
+  const matches = expectedBuf.length === givenBuf.length && timingSafeEqual(expectedBuf, givenBuf)
+
+  if (!matches) {
+    return NextResponse.json({ error: "Contraseña incorrecta." }, { status: 401 })
+  }
+
+  const response = NextResponse.json({ ok: true })
+  response.cookies.set("admin_session", sessionToken(expected), {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/admin",
+    maxAge: 60 * 60 * 24 * 7, // 7 días
+  })
+  return response
+}

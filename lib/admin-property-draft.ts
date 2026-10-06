@@ -1,0 +1,73 @@
+// Tipos compartidos del panel de alta de propiedades.
+//
+// `PropertyRawInput` es lo que hoy Alex manda "en bruto" (ver
+// claude/bienes-raices-hub-proceso-alta-propiedades.md, sección 1). El
+// formulario del panel lo captura con campos en vez de texto libre.
+//
+// `PropertyDraft` es el resultado de la generación con IA: el mismo
+// contenido que antes se pegaba a mano en `lib/properties.ts`, listo para
+// revisar y editar antes de publicar. Usa `icon` como string (ver
+// `admin-icon-map.ts`) en vez del componente de `lucide-react`, porque
+// este objeto va a terminar guardado en una base de datos.
+
+export type PropertyStatus = "disponible" | "apartada" | "vendida"
+
+export type PropertyRawInput = {
+  ubicacionColoniaSeccion: string
+  ciudad: string
+  precio: number
+  moneda: "USD" | "MXN"
+  estado: PropertyStatus
+  recamaras?: number
+  banos?: number
+  m2Terreno?: number
+  m2Construccion?: number
+  ventajasUbicacion: string // texto libre: 3 ventajas, con tiempos/distancias reales
+  caracteristicas: string // texto libre: 4-5 características de la propiedad
+  formasDePagoTexto: string // texto libre, p.ej. "Efectivo, Crédito Bancario, Infonavit"
+  whatsappAsesor?: string
+  condicionEspecialDisclaimer?: string
+  mapsLink?: string
+  notasAdicionales?: string
+}
+
+export type DraftIconItem = {
+  icon: string
+  title: string
+  description: string
+}
+
+export type DraftPagoOption = {
+  icon: string
+  label: string
+}
+
+export type PropertyDraft = {
+  slug: string
+  status: PropertyStatus
+  locationBadge: string
+  title: string
+  description: string
+  price: number
+  currency: string
+  metaTitle: string
+  metaDescription: string
+  ubicacionHeading: string
+  ubicacionSubheading: string
+  ubicacionItems: DraftIconItem[]
+  mapCaption: string
+  espaciosHeading: string
+  espaciosSubheading: string
+  espaciosItems: DraftIconItem[]
+  formasDePago: DraftPagoOption[]
+  contactoHeading: string
+  contactoSubheading: string
+  whatsappMessage: string
+  disclaimer: string
+}
+
+export const DEFAULT_DISCLAIMER_USD =
+  "Precio expresado en dólares americanos (USD). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso."
+
+export const DEFAULT_DISCLAIMER_MXN =
+  "Precio expresado en pesos mexicanos (MXN). Las fotografías son de referencia. Precio, disponibilidad y condiciones están sujetos a cambio sin previo aviso."
