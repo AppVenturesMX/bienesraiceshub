@@ -659,7 +659,7 @@ export const properties: Property[] = [
         description: "Una zona residencial tranquila, con seguridad 24/7 y muy poco tránsito.",
       },
     ],
-    mapEmbedSrc: "https://maps.google.com/maps?q=San%20Antonio%20del%20Mar%2C%20Tijuana%2C%20Baja%20California&z=13&output=embed",
+    mapEmbedSrc: "https://maps.google.com/maps?q=San%20Antonio%20del%20Mar%2C%20Playas%20de%20Tijuana%2C%20Baja%20California&z=13&output=embed",
     mapCaption: "Ubicación aproximada (San Antonio del Mar). La dirección exacta se comparte al agendar tu cita.",
 
     espaciosHeading: "Espacios pensados para disfrutar la vista al mar",
