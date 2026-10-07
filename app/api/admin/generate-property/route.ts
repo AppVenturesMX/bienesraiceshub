@@ -194,6 +194,10 @@ export async function POST(request: NextRequest) {
     currency: input.moneda,
     metaTitle: parsed.metaTitle ?? "",
     metaDescription: parsed.metaDescription ?? "",
+    // La IA genera texto, no fotos — el panel las agrega después con el
+    // botón "Subir fotos" (ver app/api/admin/upload-photo/route.ts).
+    heroImage: null,
+    gallery: [],
     ubicacionHeading: parsed.ubicacionHeading ?? "Una ubicación que lo tiene todo",
     ubicacionSubheading: parsed.ubicacionSubheading ?? "",
     ubicacionItems: Array.isArray(parsed.ubicacionItems) ? parsed.ubicacionItems : [],
