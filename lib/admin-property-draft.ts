@@ -42,6 +42,14 @@ export type DraftPagoOption = {
   label: string
 }
 
+// Foto subida por el panel (portada o galería). Mismo shape que
+// `GaleriaImage` en lib/properties.ts del repo principal — src es la URL
+// pública de Vercel Blob una vez subida la foto, no una ruta del repo.
+export type DraftImage = {
+  src: string
+  alt: string
+}
+
 export type PropertyDraft = {
   slug: string
   status: PropertyStatus
@@ -52,6 +60,11 @@ export type PropertyDraft = {
   currency: string
   metaTitle: string
   metaDescription: string
+  // null / arreglo vacío mientras no se haya subido ninguna foto — el
+  // backend usa un placeholder genérico en ese caso (ver
+  // app/api/admin/properties/route.ts).
+  heroImage: DraftImage | null
+  gallery: DraftImage[]
   ubicacionHeading: string
   ubicacionSubheading: string
   ubicacionItems: DraftIconItem[]

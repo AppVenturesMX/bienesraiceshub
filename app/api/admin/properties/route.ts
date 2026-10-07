@@ -3,20 +3,23 @@ import type { NextRequest } from "next/server"
 import { neon } from "@neondatabase/serverless"
 import { isAdminAuthenticated } from "@/lib/admin-auth"
 import { ADMIN_ICON_NAMES } from "@/lib/admin-icon-map"
-import type { PropertyDraft, DraftIconItem, DraftPagoOption } from "@/lib/admin-property-draft"
+import type { PropertyDraft, DraftIconItem, DraftPagoOption, DraftImage } from "@/lib/admin-property-draft"
 
 // Publicación de una propiedad nueva directo a Postgres (Vercel Storage /
 // Neon, ver claude/panel-alta-propiedades-diseno.md — Pieza 1, ya
 // conectado y con las 7 propiedades existentes migradas).
 //
-// El panel todavía no sube fotos ni mapa embebido (fuera de alcance de
-// esta primera versión — ver nota en la página de alta), así que las
-// columnas NOT NULL hero_image / gallery / map_embed_src / map_caption se
-// llenan con un placeholder genérico (una tarjeta "Foto próximamente" en
-// SVG inline, sin depender de ningún archivo del repo). Alex completa esas
-// fotos y el mapa después, subiéndolas por GitHub y actualizando esas
-// columnas a mano (mismo proceso manual de siempre), o cuando se agregue
-// carga de fotos al panel.
+// El panel ya sube fotos (ver app/api/admin/upload-photo/route.ts y el
+// botón "Subir fotos" en la página de alta) — si el draft trae
+// heroImage/gallery se usan esas. El panel todavía no sube un mapa
+// embebido (fuera de alcance de esta primera versión), así que la columna
+// NOT NULL map_embed_src se llena con cadena vacía; map_caption sí lo
+// llena la IA. Si Alex publica sin haber subido ninguna foto (por ejemplo
+// para completar los datos primero y las fotos después a mano), las
+// columnas NOT NULL hero_image/gallery se llenan con un placeholder
+// genérico (una tarjeta "Foto próximamente" en SVG inline, sin depender de
+// ningún archivo del repo) que puede reemplazar después directo en la base
+// de datos (editar desde el panel no está soportado todavía).
 
 const PLACEHOLDER_IMAGE = {
   src:
@@ -49,6 +52,12 @@ function isValidPagoOption(value: unknown): value is DraftPagoOption {
   if (typeof value !== "object" || value === null) return false
   const item = value as Record<string, unknown>
   return isNonEmptyString(item.icon) && ADMIN_ICON_NAMES.includes(item.icon as string) && isNonEmptyString(item.label)
+}
+
+function isValidDraftImage(value: unknown): value is DraftImage {
+  if (typeof value !== "object" || value === null) return false
+  const item = value as Record<string, unknown>
+  return isNonEmptyString(item.src) && isNonEmptyString(item.alt)
 }
 
 const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/
@@ -93,6 +102,12 @@ function validateDraft(draft: PropertyDraft): string | null {
   if (!Array.isArray(draft.formasDePago) || draft.formasDePago.length === 0 || !draft.formasDePago.every(isValidPagoOption)) {
     return "Las formas de pago son inválidas o usan un ícono no permitido."
   }
+  if (draft.heroImage !== null && draft.heroImage !== undefined && !isValidDraftImage(draft.heroImage)) {
+    return "La foto de portada es inválida."
+  }
+  if (draft.gallery !== undefined && (!Array.isArray(draft.gallery) || !draft.gallery.every(isValidDraftImage))) {
+    return "Una o más fotos de la galería son inválidas."
+  }
   return null
 }
 
@@ -126,6 +141,15 @@ export async function POST(request: NextRequest) {
 
   const sql = neon(process.env.POSTGRES_URL)
 
+  // Si Alex ya subió fotos con el nuevo botón de carga (ver
+  // app/api/admin/upload-photo/route.ts), se usan esas. Si no, se sigue
+  // usando el marcador genérico, igual que antes de que existiera la carga
+  // de fotos — así el botón "Publicar" nunca queda bloqueado por no tener
+  // fotos a la mano.
+  const heroImage = draft.heroImage ?? PLACEHOLDER_IMAGE
+  const gallery = draft.gallery && draft.gallery.length > 0 ? draft.gallery : [PLACEHOLDER_IMAGE]
+  const usedPlaceholder = !draft.heroImage && (!draft.gallery || draft.gallery.length === 0)
+
   try {
     const rows = await sql`
       INSERT INTO properties (
@@ -138,7 +162,7 @@ export async function POST(request: NextRequest) {
         contacto_heading, contacto_subheading, whatsapp_message, disclaimer
       ) VALUES (
         ${draft.slug}, ${draft.status}, ${draft.locationBadge}, ${draft.title}, ${draft.description}, ${draft.price}, ${draft.currency},
-        ${JSON.stringify(PLACEHOLDER_IMAGE)}::jsonb, ${draft.metaTitle}, ${draft.metaDescription}, ${JSON.stringify([PLACEHOLDER_IMAGE])}::jsonb,
+        ${JSON.stringify(heroImage)}::jsonb, ${draft.metaTitle}, ${draft.metaDescription}, ${JSON.stringify(gallery)}::jsonb,
         ${draft.ubicacionHeading}, ${draft.ubicacionSubheading}, ${JSON.stringify(draft.ubicacionItems)}::jsonb,
         ${""}, ${draft.mapCaption},
         ${draft.espaciosHeading}, ${draft.espaciosSubheading}, ${JSON.stringify(draft.espaciosItems)}::jsonb,
@@ -166,7 +190,8 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     ok: true,
     slug: draft.slug,
-    note:
-      "Propiedad publicada. Las fotos y el mapa quedaron con un marcador temporal — súbelas por GitHub y actualiza esas columnas cuando las tengas listas.",
+    note: usedPlaceholder
+      ? "Propiedad publicada sin fotos — quedó con un marcador temporal. Puedes subir las fotos después desde el panel (editar no soportado todavía) o a mano en la base de datos."
+      : "Propiedad publicada con las fotos que subiste. El mapa embebido queda vacío por ahora — se agrega a mano en la base de datos si lo necesitas.",
   })
 }
