@@ -128,7 +128,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         model,
-        max_tokens: 4096,
+        max_tokens: 8192,
         system: SYSTEM_PROMPT,
         messages: [{ role: "user", content: buildUserPrompt(input) }],
       }),
@@ -146,7 +146,26 @@ export async function POST(request: NextRequest) {
   }
 
   const data = await response.json()
-  const rawText: string = data?.content?.[0]?.text ?? ""
+
+  // El modelo puede devolver varios bloques en `content` (por ejemplo un
+  // bloque de razonamiento antes del texto final) — se concatena el texto
+  // de todos los bloques de tipo "text" en vez de asumir que el primero ya
+  // es el texto, para no quedarse leyendo un bloque vacío.
+  const contentBlocks: Array<{ type: string; text?: string }> = Array.isArray(data?.content) ? data.content : []
+  const rawText: string = contentBlocks
+    .filter((block) => block.type === "text" && typeof block.text === "string")
+    .map((block) => block.text)
+    .join("\n")
+
+  if (data?.stop_reason === "max_tokens") {
+    return NextResponse.json(
+      {
+        error: "La respuesta de la IA se cortó antes de terminar (llegó al límite de tokens). Intenta de nuevo.",
+        raw: rawText,
+      },
+      { status: 502 },
+    )
+  }
 
   let parsed: Partial<PropertyDraft>
   try {
