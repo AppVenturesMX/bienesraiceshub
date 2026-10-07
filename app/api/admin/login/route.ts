@@ -1,15 +1,12 @@
-import { createHash, timingSafeEqual } from "node:crypto"
+import { timingSafeEqual } from "node:crypto"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { sessionToken } from "@/lib/admin-auth"
 
 // Acceso simple por contraseña para el panel de alta de propiedades. No es
 // un sistema de usuarios — es una sola persona o un equipo chico, así que
 // una contraseña compartida (variable de entorno) más una cookie de sesión
 // es suficiente, sin agregar ninguna dependencia nueva al proyecto.
-
-function sessionToken(password: string) {
-  return createHash("sha256").update(password).digest("hex")
-}
 
 export async function POST(request: NextRequest) {
   const expected = process.env.ADMIN_PANEL_PASSWORD
@@ -41,7 +38,11 @@ export async function POST(request: NextRequest) {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
-    path: "/admin",
+    // Antes era "/admin" — eso dejaba la cookie sin enviarse a
+    // /api/admin/*, que no comparte ese prefijo de ruta. Con "/" cubre
+    // tanto las páginas de /admin como las rutas de API que ahora también
+    // verifican la sesión (ver lib/admin-auth.ts).
+    path: "/",
     maxAge: 60 * 60 * 24 * 7, // 7 días
   })
   return response
