@@ -1,8 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { ADMIN_ICON_NAMES, resolveAdminIcon } from "@/lib/admin-icon-map"
-import type { PropertyDraft, PropertyRawInput } from "@/lib/admin-property-draft"
+import { upload } from "@vercel/blob/client"
+import { resolveAdminIcon } from "@/lib/admin-icon-map"
+import type { DraftImage, PropertyDraft, PropertyRawInput } from "@/lib/admin-property-draft"
 
 const EMPTY_INPUT: PropertyRawInput = {
   ubicacionColoniaSeccion: "",
@@ -31,6 +32,8 @@ export default function AdminPropiedadesPage() {
   const [publishing, setPublishing] = useState(false)
   const [publishMessage, setPublishMessage] = useState<string | null>(null)
   const [publishFallbackJson, setPublishFallbackJson] = useState<string | null>(null)
+  const [uploadingPhotos, setUploadingPhotos] = useState(false)
+  const [photoError, setPhotoError] = useState<string | null>(null)
 
   function updateField<K extends keyof PropertyRawInput>(key: K, value: PropertyRawInput[K]) {
     setInput((prev) => ({ ...prev, [key]: value }))
@@ -56,12 +59,72 @@ export default function AdminPropiedadesPage() {
         setGenerateError(data?.error || "No se pudo generar el contenido.")
         return
       }
-      setDraft(data.draft as PropertyDraft)
+      // La IA genera el texto, no las fotos — heroImage/gallery arrancan
+      // vacíos y se llenan con el botón "Subir fotos" de abajo.
+      setDraft({ ...(data.draft as PropertyDraft), heroImage: null, gallery: [] })
     } catch {
       setGenerateError("No se pudo contactar al servidor.")
     } finally {
       setGenerating(false)
     }
+  }
+
+  async function handlePhotoUpload(files: FileList | null) {
+    if (!files || files.length === 0 || !draft) return
+    setPhotoError(null)
+    setUploadingPhotos(true)
+    try {
+      const uploaded: DraftImage[] = []
+      for (const file of Array.from(files)) {
+        const safeName = file.name
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9.]+/g, "-")
+        const pathname = `properties/${draft.slug || "sin-slug"}/${Date.now()}-${safeName}`
+        const blob = await upload(pathname, file, {
+          access: "public",
+          handleUploadUrl: "/api/admin/upload-photo",
+        })
+        const defaultAlt = file.name.replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " ")
+        uploaded.push({ src: blob.url, alt: defaultAlt })
+      }
+      setDraft((prev) => {
+        if (!prev) return prev
+        const gallery = [...prev.gallery, ...uploaded]
+        const heroImage = prev.heroImage ?? uploaded[0] ?? null
+        return { ...prev, gallery, heroImage }
+      })
+    } catch {
+      setPhotoError("No se pudieron subir una o más fotos. Intenta de nuevo.")
+    } finally {
+      setUploadingPhotos(false)
+    }
+  }
+
+  function setAsHero(img: DraftImage) {
+    updateDraftField("heroImage", img)
+  }
+
+  function removePhoto(index: number) {
+    setDraft((prev) => {
+      if (!prev) return prev
+      const removed = prev.gallery[index]
+      const gallery = prev.gallery.filter((_, i) => i !== index)
+      const heroImage = prev.heroImage && prev.heroImage.src === removed.src ? (gallery[0] ?? null) : prev.heroImage
+      return { ...prev, gallery, heroImage }
+    })
+  }
+
+  function updateGalleryAlt(index: number, alt: string) {
+    setDraft((prev) => {
+      if (!prev) return prev
+      const gallery = [...prev.gallery]
+      gallery[index] = { ...gallery[index], alt }
+      const heroImage =
+        prev.heroImage && prev.heroImage.src === gallery[index].src ? { ...prev.heroImage, alt } : prev.heroImage
+      return { ...prev, gallery, heroImage }
+    })
   }
 
   async function handlePublish() {
@@ -370,6 +433,62 @@ export default function AdminPropiedadesPage() {
             </div>
           </div>
 
+          <div>
+            <p className="mb-2 text-sm font-medium">Fotos ({draft.gallery.length})</p>
+            <label className="mb-3 flex w-fit cursor-pointer items-center gap-2 rounded border border-neutral-300 px-4 py-2 text-sm font-medium">
+              {uploadingPhotos ? "Subiendo…" : "Subir fotos"}
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                multiple
+                disabled={uploadingPhotos}
+                className="hidden"
+                onChange={(e) => {
+                  void handlePhotoUpload(e.target.files)
+                  e.target.value = ""
+                }}
+              />
+            </label>
+            {photoError ? <p className="mb-2 text-sm text-red-600">{photoError}</p> : null}
+
+            {draft.gallery.length > 0 ? (
+              <div className="grid grid-cols-3 gap-3">
+                {draft.gallery.map((img, i) => {
+                  const isHero = draft.heroImage?.src === img.src
+                  return (
+                    <div key={img.src} className="flex flex-col gap-1 rounded border border-neutral-200 p-2">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- el sitio ya usa <img> plano en todos lados, sin next/image */}
+                      <img src={img.src} alt={img.alt} className="aspect-video w-full rounded object-cover" />
+                      <input
+                        className="rounded border border-neutral-300 px-2 py-1 text-xs"
+                        value={img.alt}
+                        onChange={(e) => updateGalleryAlt(i, e.target.value)}
+                        placeholder="Descripción de la foto (alt)"
+                      />
+                      <div className="flex items-center justify-between">
+                        <button
+                          type="button"
+                          onClick={() => setAsHero(img)}
+                          disabled={isHero}
+                          className="text-xs font-medium underline disabled:no-underline disabled:text-neutral-400"
+                        >
+                          {isHero ? "Portada" : "Marcar portada"}
+                        </button>
+                        <button type="button" onClick={() => removePhoto(i)} className="text-xs text-red-600 underline">
+                          Quitar
+                        </button>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <p className="text-xs text-neutral-500">
+                Sin fotos todavía — se publica con un marcador temporal hasta que subas al menos una.
+              </p>
+            )}
+          </div>
+
           <label className="flex flex-col gap-1 text-sm">
             Mensaje de WhatsApp prellenado
             <textarea
@@ -389,8 +508,8 @@ export default function AdminPropiedadesPage() {
           </label>
 
           <p className="text-xs text-neutral-500">
-            Nota: las fotos y el mapa embebido todavía se suben por el proceso actual (GitHub) — esta primera
-            versión del panel cubre redacción y datos, no carga de imágenes.
+            Nota: el mapa embebido todavía se agrega a mano en la base de datos si lo necesitas — esta versión del
+            panel no lo cubre.
           </p>
 
           <button
