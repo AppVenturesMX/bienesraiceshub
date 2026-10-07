@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { neon } from "@neondatabase/serverless"
+import { isAdminAuthenticated } from "@/lib/admin-auth"
 import { ADMIN_ICON_NAMES } from "@/lib/admin-icon-map"
 import type { PropertyDraft, DraftIconItem, DraftPagoOption } from "@/lib/admin-property-draft"
 
@@ -96,6 +97,10 @@ function validateDraft(draft: PropertyDraft): string | null {
 }
 
 export async function POST(request: NextRequest) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: "No autorizado. Inicia sesión en /admin/login." }, { status: 401 })
+  }
+
   let draft: PropertyDraft
   try {
     draft = await request.json()

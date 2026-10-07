@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { isAdminAuthenticated } from "@/lib/admin-auth"
 import { ADMIN_ICON_NAMES } from "@/lib/admin-icon-map"
 import {
   DEFAULT_DISCLAIMER_MXN,
@@ -81,6 +82,10 @@ function defaultDisclaimer(moneda: "USD" | "MXN"): string {
 }
 
 export async function POST(request: NextRequest) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: "No autorizado. Inicia sesión en /admin/login." }, { status: 401 })
+  }
+
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
     return NextResponse.json(
