@@ -34,6 +34,13 @@ export function SiteFooter({ disclaimer }: SiteFooterProps) {
           >
             Aviso de privacidad
           </a>
+          <span aria-hidden="true">·</span>
+<Link
+href="/admin/login"
+className="underline underline-offset-2 hover:text-emerald-700"
+>
+Panel de administrador
+</Link>
         </p>
         <p className="mt-4 text-sm text-slate-500">
           Este sitio y su contenido son propiedad y responsabilidad de Sistema SIS, S. de R.L. de C.V.
