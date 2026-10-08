@@ -1,11 +1,12 @@
-import { properties } from "@/lib/properties"
+import { getAllProperties } from "@/lib/properties-db"
 import { isisFacts } from "@/lib/isis-facts"
 
 // Catálogo en JSON para las tarjetas con foto de Isis (widget).
-export const dynamic = "force-static"
+export const dynamic = "force-dynamic"
 
-export function GET() {
+export async function GET() {
   const base = "https://www.bienesraiceshub.com"
+  const properties = await getAllProperties()
   const items = properties
     .filter((p) => p.status !== "vendida")
     .map((p) => ({
@@ -14,7 +15,7 @@ export function GET() {
       price: p.price,
       currency: p.currency,
       status: p.status,
-      image: base + p.heroImage.src,
+      image: /^(https?:|data:)/.test(p.heroImage.src) ? p.heroImage.src : base + p.heroImage.src,
       url: `${base}/propiedad/${p.slug}`,
       ...isisFacts(p),
     }))
