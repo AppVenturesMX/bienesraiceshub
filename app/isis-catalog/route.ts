@@ -1,11 +1,13 @@
-import { properties } from "@/lib/properties"
+import { getAllProperties } from "@/lib/properties-db"
 import { isisFacts } from "@/lib/isis-facts"
 
-// Catálogo en texto plano para Isis (widget). Se genera desde lib/properties.ts,
-// así que siempre refleja las propiedades y su estado reales del sitio.
-export const dynamic = "force-static"
+// Catálogo en texto plano para Isis (widget). Se genera desde la base de datos
+// (lib/properties-db.ts), así que siempre refleja las propiedades y su estado
+// reales del sitio, incluyendo lo publicado desde el panel de administración.
+export const dynamic = "force-dynamic"
 
-export function GET() {
+export async function GET() {
+  const properties = await getAllProperties()
   const items = properties
     .filter((p) => p.status !== "vendida")
     .map((p, i) => {

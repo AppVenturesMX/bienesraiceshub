@@ -9,20 +9,21 @@ import { Reveal } from "@/components/reveal"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingButtons } from "@/components/floating-buttons"
 import { GENERAL_WHATSAPP_URL } from "@/lib/site"
-import { properties } from "@/lib/properties"
+import { getAllProperties, getHeroMosaicImages } from "@/lib/properties-db"
 
+export const dynamic = "force-dynamic"
 
-export default function Page() {
+export default async function Page() {
+  const properties = await getAllProperties()
+  const mosaic = getHeroMosaicImages(properties, 8)
   return (
     <>
       <Navbar mode="hub" />
       <main>
-        <HubHero />
+        <HubHero mosaic={mosaic} />
         <HubTrustBar />
 
-
         <HubWhyUs />
-
 
         <section id="propiedades" className="scroll-mt-20 bg-slate-50 py-20 sm:py-24">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -41,7 +42,6 @@ export default function Page() {
             </div>
           </div>
         </section>
-
 
         <section className="bg-white py-20 sm:py-24">
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
@@ -67,9 +67,7 @@ export default function Page() {
           </div>
         </section>
 
-
         <HubHowItWorks />
-
 
         <HubCtaBand />
       </main>

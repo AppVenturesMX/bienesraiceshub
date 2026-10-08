@@ -5,11 +5,9 @@ import { ShieldCheck } from "lucide-react"
 import { IntentSelector } from "./intent-selector"
 import { HubMark } from "./hub-mark"
 import { SITE_TAGLINE } from "@/lib/site"
-import { getHeroMosaicImages } from "@/lib/properties"
+import type { GaleriaImage } from "@/lib/properties"
 
-export function HubHero() {
-  const mosaic = getHeroMosaicImages(8)
-
+export function HubHero({ mosaic = [] }: { mosaic?: GaleriaImage[] }) {
   return (
     <section className="relative isolate overflow-hidden bg-slate-950">
       {mosaic.length > 0 && (
