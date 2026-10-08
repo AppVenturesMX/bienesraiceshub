@@ -11,19 +11,18 @@ import { Facilidades } from "@/components/facilidades"
 import { Contacto } from "@/components/contacto"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingButtons } from "@/components/floating-buttons"
-import { getProperty, getPropertyWhatsAppUrl, properties } from "@/lib/properties"
+import { getPropertyWhatsAppUrl } from "@/lib/properties"
+import { getPropertyBySlug } from "@/lib/properties-db"
+
+export const dynamic = "force-dynamic"
 
 type PageProps = {
   params: Promise<{ slug: string }>
 }
 
-export function generateStaticParams() {
-  return properties.map((property) => ({ slug: property.slug }))
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const property = getProperty(slug)
+  const property = await getPropertyBySlug(slug)
   if (!property) return {}
 
   return {
@@ -46,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function PropertyPage({ params }: PageProps) {
   const { slug } = await params
-  const property = getProperty(slug)
+  const property = await getPropertyBySlug(slug)
 
   if (!property) {
     notFound()
