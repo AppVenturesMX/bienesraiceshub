@@ -14,20 +14,20 @@ import { isAdminAuthenticated } from "@/lib/admin-auth"
 // como webhook después de cada subida, pero no lo necesitamos — la URL
 // final se guarda en Postgres hasta que Alex le da clic a "Publicar" (ver
 // app/api/admin/properties/route.ts), no en el momento de subir la foto.
+//
+// Nota (8 oct 2026): el store de Blob está conectado a este proyecto vía
+// OIDC (Vercel → Storage → bienesraiceshub-blob → Connections), no vía el
+// token estático BLOB_READ_WRITE_TOKEN — por eso esa variable nunca
+// aparece en Environment Variables, solo BLOB_STORE_ID y
+// BLOB_WEBHOOK_PUBLIC_KEY. @vercel/blob resuelve la autenticación por
+// OIDC automáticamente en runtime de Vercel cuando no hay
+// BLOB_READ_WRITE_TOKEN explícito, así que ya no se bloquea la subida por
+// esa variable — si el store no estuviera conectado de verdad,
+// handleUpload lanza su propio error, que se captura abajo.
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "No autorizado. Inicia sesión en /admin/login." }, { status: 401 })
-  }
-
-  if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    return NextResponse.json(
-      {
-        error:
-          "Todavía no hay almacenamiento de fotos conectado al proyecto (Vercel → bienesraiceshub → Storage → Create Database → Blob).",
-      },
-      { status: 501 },
-    )
   }
 
   const body = (await request.json()) as HandleUploadBody
