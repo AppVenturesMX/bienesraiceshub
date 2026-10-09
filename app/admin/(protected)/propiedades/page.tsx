@@ -410,6 +410,16 @@ export default function AdminPropiedadesPage() {
             </div>
           </div>
 
+          <label className="flex flex-col gap-1 text-sm">
+            Link de Google Maps
+            <input
+              className="rounded border border-neutral-300 px-3 py-2"
+              placeholder="Pega el link de Google Maps, el código <iframe> de 'Insertar un mapa', o la ubicación en texto"
+              value={draft.mapEmbedSrc}
+              onChange={(e) => updateDraftField("mapEmbedSrc", e.target.value)}
+            />
+          </label>
+
           <div>
             <p className="mb-2 text-sm font-medium">Espacios ({draft.espaciosItems.length})</p>
             <div className="flex flex-col gap-3">
@@ -517,11 +527,6 @@ export default function AdminPropiedadesPage() {
               onChange={(e) => updateDraftField("disclaimer", e.target.value)}
             />
           </label>
-
-          <p className="text-xs text-neutral-500">
-            Nota: el mapa embebido todavía se agrega a mano en la base de datos si lo necesitas — esta versión del
-            panel no lo cubre.
-          </p>
 
           <button
             type="button"
