@@ -15,15 +15,19 @@ import { isAdminAuthenticated } from "@/lib/admin-auth"
 // final se guarda en Postgres hasta que Alex le da clic a "Publicar" (ver
 // app/api/admin/properties/route.ts), no en el momento de subir la foto.
 //
-// Nota (8 oct 2026): el store de Blob está conectado a este proyecto vía
-// OIDC (Vercel → Storage → bienesraiceshub-blob → Connections), no vía el
-// token estático BLOB_READ_WRITE_TOKEN — por eso esa variable nunca
-// aparece en Environment Variables, solo BLOB_STORE_ID y
-// BLOB_WEBHOOK_PUBLIC_KEY. @vercel/blob resuelve la autenticación por
-// OIDC automáticamente en runtime de Vercel cuando no hay
-// BLOB_READ_WRITE_TOKEN explícito, así que ya no se bloquea la subida por
-// esa variable — si el store no estuviera conectado de verdad,
-// handleUpload lanza su propio error, que se captura abajo.
+// Nota (9 oct 2026): el store original (bienesraiceshub-blob) se creó
+// como Private, pero esta ruta siempre pidió access: "public" al subir —
+// ese choque de modos de acceso hacía que cada subida fallara con 503 en
+// el PUT directo a Vercel Blob (el botón "Subiendo..." se quedaba pegado
+// para siempre). Se creó un segundo store, bienesraiceshub-blob-public
+// (Public), conectado a este proyecto. `handleUpload` de @vercel/blob
+// solo sabe resolver credenciales vía `token` / BLOB_READ_WRITE_TOKEN —
+// no acepta `storeId` ni usa las credenciales OIDC que Vercel generó al
+// conectar el store nuevo — así que se le pasa el `token` explícito del
+// store público (bienesraiceshubpublic_READ_WRITE_TOKEN, generado desde
+// Storage → bienesraiceshub-blob-public → Settings → Rotate Credentials).
+// El BLOB_READ_WRITE_TOKEN "clásico" que sigue en las variables de
+// entorno pertenece al store privado original y ya no se usa aquí.
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   if (!(await isAdminAuthenticated())) {
@@ -36,6 +40,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const jsonResponse = await handleUpload({
       body,
       request,
+      token: process.env.bienesraiceshubpublic_READ_WRITE_TOKEN,
       onBeforeGenerateToken: async () => {
         return {
           allowedContentTypes: ["image/jpeg", "image/png", "image/webp"],
