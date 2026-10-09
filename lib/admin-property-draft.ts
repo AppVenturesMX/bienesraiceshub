@@ -110,22 +110,104 @@ export const PLACEHOLDER_IMAGE: DraftImage = {
   alt: "Foto próximamente",
 }
 
+// Hosts de los links cortos que da el botón "Compartir" de Google Maps
+// (sobre todo desde el celular) — no traen coordenadas ni nombre de lugar
+// en la URL misma, hay que seguir el redirect para encontrarlos.
+const GOOGLE_MAPS_SHORT_LINK_HOSTS = new Set(["maps.app.goo.gl", "goo.gl"])
+
+function isGoogleMapsUrl(url: URL): boolean {
+  if (GOOGLE_MAPS_SHORT_LINK_HOSTS.has(url.hostname)) return true
+  return url.hostname.includes("google.") && url.pathname.includes("/maps")
+}
+
+// Dado un link normal (largo) de Google Maps ya resuelto — del tipo que da
+// "Compartir → Copiar enlace" en desktop, con la forma
+// ".../maps/place/<Nombre>/@<lat>,<lng>,<zoom>z/..." o ".../maps/@<lat>,<lng>,<zoom>z" —
+// intenta sacar algo que Google SÍ reconozca como ubicación dentro del
+// patrón de embed "q=...". Si no encuentra nada reconocible regresa null
+// (y el llamador decide el fallback) en vez de meter la URL completa como
+// si fuera el nombre de un lugar, que es justo el bug que esto corrige:
+// Google Maps no "reconoce" una URL pegada como texto de búsqueda.
+function extractLocationFromResolvedUrl(url: URL): string | null {
+  // .../maps/.../@<lat>,<lng>,<zoom>z/...
+  const coordsMatch = url.pathname.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)
+  if (coordsMatch) {
+    const [, lat, lng] = coordsMatch
+    return `${lat},${lng}`
+  }
+
+  // .../maps/place/<Nombre+del+lugar>/...
+  const placeMatch = url.pathname.match(/\/place\/([^/]+)/)
+  if (placeMatch) {
+    return decodeURIComponent(placeMatch[1].replace(/\+/g, " "))
+  }
+
+  // .../maps?q=<lo que sea> o .../maps/search/?q=<lo que sea>
+  const qParam = url.searchParams.get("q")
+  if (qParam) return qParam
+
+  return null
+}
+
+// Resuelve un link de Google Maps (largo o corto tipo maps.app.goo.gl) a la
+// URL de embed que se usa como `src` de un <iframe>. Si es un link corto,
+// sigue el redirect para encontrar las coordenadas o el nombre del lugar
+// reales. Regresa null cuando `rawInput` no es una URL de Google Maps en
+// absoluto (texto libre, p. ej. una descripción del lugar) o cuando es una
+// pero no se le pudo sacar nada reconocible — en ambos casos el llamador
+// cae al mismo patrón de siempre, tratando el texto como descripción.
+async function embedSrcFromGoogleMapsLink(rawInput: string): Promise<string | null> {
+  let url: URL
+  try {
+    url = new URL(rawInput)
+  } catch {
+    return null // no es una URL -> es texto plano
+  }
+
+  if (!isGoogleMapsUrl(url)) return null
+
+  let resolved = url
+  if (GOOGLE_MAPS_SHORT_LINK_HOSTS.has(url.hostname)) {
+    try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 5000)
+      const res = await fetch(rawInput, { redirect: "follow", signal: controller.signal })
+      clearTimeout(timeout)
+      resolved = new URL(res.url)
+    } catch {
+      return null // no se pudo resolver el link corto a tiempo
+    }
+  }
+
+  const location = extractLocationFromResolvedUrl(resolved)
+  if (!location) return null
+
+  return `https://maps.google.com/maps?q=${encodeURIComponent(location)}&z=15&output=embed`
+}
+
 // Convierte lo que Alex pega en el campo "Link de Google Maps" (del panel
 // de alta o de edición) en una URL de embed usable directo como `src` de
 // un <iframe> — mismo patrón que ya traían las propiedades migradas a mano
 // a lib/properties.ts: "https://maps.google.com/maps?q=<texto>&z=15&output=embed".
 //
-// Acepta tres formas de pegado, de más a menos específica:
+// Acepta estas formas de pegado, de más a menos específica:
 // 1. Código <iframe ... src="...output=embed...">...</iframe> (lo que da
 //    el botón "Compartir → Insertar un mapa" de Google Maps) — se extrae
 //    el src tal cual.
 // 2. Una URL que ya es de embed (contiene "output=embed") — se usa tal cual.
-// 3. Cualquier otro texto: un link normal de Google Maps (de los que no se
-//    pueden usar directo en un <iframe> por X-Frame-Options) o una
-//    descripción del lugar ("Sección Monumental, Playas de Tijuana") — se
-//    envuelve en el patrón de embed de arriba, igual que se hacía a mano.
+// 3. Un link normal de Google Maps — largo (con coordenadas "@lat,lng" o
+//    "/place/<nombre>") o corto (maps.app.goo.gl / goo.gl, los que da el
+//    botón "Compartir" del celular) — de los que no se pueden usar directo
+//    en un <iframe> por X-Frame-Options: se le sacan las coordenadas o el
+//    nombre del lugar (siguiendo el redirect si hace falta) y se arma un
+//    link de embed nuevo con esos datos, en vez de pegar la URL completa
+//    como si fuera el nombre de un lugar (eso es lo que hacía que Google
+//    Maps "no reconociera la ubicación": una URL no es una dirección).
+// 4. Cualquier otro texto: una descripción del lugar ("Sección Monumental,
+//    Playas de Tijuana") — se envuelve en el patrón de embed de arriba,
+//    igual que se hacía a mano.
 // Si Alex no pega nada, regresa "" (sin mapa, como hasta ahora).
-export function normalizeMapEmbedSrc(rawInput: string): string {
+export async function normalizeMapEmbedSrc(rawInput: string): Promise<string> {
   const trimmed = (rawInput ?? "").trim()
   if (!trimmed) return ""
 
@@ -133,6 +215,9 @@ export function normalizeMapEmbedSrc(rawInput: string): string {
   if (iframeSrcMatch) return iframeSrcMatch[1]
 
   if (trimmed.includes("output=embed")) return trimmed
+
+  const fromGoogleMapsLink = await embedSrcFromGoogleMapsLink(trimmed)
+  if (fromGoogleMapsLink) return fromGoogleMapsLink
 
   return `https://maps.google.com/maps?q=${encodeURIComponent(trimmed)}&z=15&output=embed`
 }
