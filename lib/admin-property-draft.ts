@@ -72,6 +72,12 @@ export type PropertyDraft = {
   ubicacionSubheading: string
   ubicacionItems: DraftIconItem[]
   mapCaption: string
+  // URL lista para usar como `src` de un <iframe> (patrón
+  // "https://maps.google.com/maps?q=...&z=15&output=embed", ver
+  // lib/properties.ts). Puede quedar vacía ("") si todavía no hay mapa —
+  // ver normalizeMapEmbedSrc() más abajo para cómo se construye a partir
+  // de lo que Alex pega en el panel.
+  mapEmbedSrc: string
   espaciosHeading: string
   espaciosSubheading: string
   espaciosItems: DraftIconItem[]
@@ -102,4 +108,31 @@ export const PLACEHOLDER_IMAGE: DraftImage = {
         `</svg>`,
     ),
   alt: "Foto próximamente",
+}
+
+// Convierte lo que Alex pega en el campo "Link de Google Maps" (del panel
+// de alta o de edición) en una URL de embed usable directo como `src` de
+// un <iframe> — mismo patrón que ya traían las propiedades migradas a mano
+// a lib/properties.ts: "https://maps.google.com/maps?q=<texto>&z=15&output=embed".
+//
+// Acepta tres formas de pegado, de más a menos específica:
+// 1. Código <iframe ... src="...output=embed...">...</iframe> (lo que da
+//    el botón "Compartir → Insertar un mapa" de Google Maps) — se extrae
+//    el src tal cual.
+// 2. Una URL que ya es de embed (contiene "output=embed") — se usa tal cual.
+// 3. Cualquier otro texto: un link normal de Google Maps (de los que no se
+//    pueden usar directo en un <iframe> por X-Frame-Options) o una
+//    descripción del lugar ("Sección Monumental, Playas de Tijuana") — se
+//    envuelve en el patrón de embed de arriba, igual que se hacía a mano.
+// Si Alex no pega nada, regresa "" (sin mapa, como hasta ahora).
+export function normalizeMapEmbedSrc(rawInput: string): string {
+  const trimmed = (rawInput ?? "").trim()
+  if (!trimmed) return ""
+
+  const iframeSrcMatch = trimmed.match(/<iframe[^>]*\ssrc=["']([^"']+)["']/i)
+  if (iframeSrcMatch) return iframeSrcMatch[1]
+
+  if (trimmed.includes("output=embed")) return trimmed
+
+  return `https://maps.google.com/maps?q=${encodeURIComponent(trimmed)}&z=15&output=embed`
 }
