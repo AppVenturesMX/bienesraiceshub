@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
     .join("\n")
 
   if (data?.stop_reason === "max_tokens") {
-    return NextResponse.json(
+  return NextResponse.json(
       {
         error: "La respuesta de la IA se cortó antes de terminar (llegó al límite de tokens). Intenta de nuevo.",
         raw: rawText,
@@ -206,7 +206,7 @@ export async function POST(request: NextRequest) {
     // Viene de input.mapsLink (campo "Link de Google Maps" del paso 1 del
     // panel de alta) — la IA no lo toca, solo se normaliza al patrón de
     // embed. Ver normalizeMapEmbedSrc() en admin-property-draft.ts.
-    mapEmbedSrc: normalizeMapEmbedSrc(input.mapsLink ?? ""),
+    mapEmbedSrc: await normalizeMapEmbedSrc(input.mapsLink ?? ""),
     espaciosHeading: parsed.espaciosHeading ?? "Espacios que enamoran",
     espaciosSubheading: parsed.espaciosSubheading ?? "",
     espaciosItems: Array.isArray(parsed.espaciosItems) ? parsed.espaciosItems : [],
