@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server"
 import { neon } from "@neondatabase/serverless"
 import { isAdminAuthenticated } from "@/lib/admin-auth"
 import type { PropertyDraft } from "@/lib/admin-property-draft"
-import { PLACEHOLDER_IMAGE } from "@/lib/admin-property-draft"
+import { PLACEHOLDER_IMAGE, normalizeMapEmbedSrc } from "@/lib/admin-property-draft"
 import { validateDraft } from "@/lib/admin-validate-draft"
 
 // Edición y borrado de una propiedad puntual ya publicada, para
@@ -14,10 +14,10 @@ import { validateDraft } from "@/lib/admin-validate-draft"
 //
 // El slug es la llave primaria de la tabla y no se puede renombrar desde
 // aquí todavía (si el draft trae un slug distinto al de la URL, se ignora
-// y se usa el de la URL) — igual que el formulario de alta, esta primera
-// versión de edición no toca map_embed_src: esa columna se sigue llenando
-// a mano en la base de datos cuando aplica, así una edición nunca la borra
-// sin querer.
+// y se usa el de la URL). El campo de Google Maps (draft.mapEmbedSrc) sí se
+// lee y se guarda aquí — se normaliza otra vez al patrón de embed por si
+// Alex pegó un link nuevo directo en el panel de edición (ver
+// normalizeMapEmbedSrc en lib/admin-property-draft.ts).
 
 type PropertyRow = {
   slug: string
@@ -34,6 +34,7 @@ type PropertyRow = {
   ubicacion_heading: string
   ubicacion_subheading: string
   ubicacion_items: { icon: string; title: string; description: string }[]
+  map_embed_src: string
   map_caption: string
   espacios_heading: string
   espacios_subheading: string
@@ -62,6 +63,7 @@ function mapRowToDraft(row: PropertyRow): PropertyDraft {
     ubicacionSubheading: row.ubicacion_subheading,
     ubicacionItems: row.ubicacion_items,
     mapCaption: row.map_caption,
+    mapEmbedSrc: row.map_embed_src ?? "",
     espaciosHeading: row.espacios_heading,
     espaciosSubheading: row.espacios_subheading,
     espaciosItems: row.espacios_items,
@@ -125,7 +127,6 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   const gallery = draft.gallery && draft.gallery.length > 0 ? draft.gallery : [PLACEHOLDER_IMAGE]
 
   try {
-    // map_embed_src no se toca aquí a propósito (ver comentario arriba).
     const rows = await sql`
       UPDATE properties SET
         status = ${draft.status},
@@ -141,6 +142,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         ubicacion_heading = ${draft.ubicacionHeading},
         ubicacion_subheading = ${draft.ubicacionSubheading},
         ubicacion_items = ${JSON.stringify(draft.ubicacionItems)}::jsonb,
+        map_embed_src = ${normalizeMapEmbedSrc(draft.mapEmbedSrc ?? "")},
         map_caption = ${draft.mapCaption},
         espacios_heading = ${draft.espaciosHeading},
         espacios_subheading = ${draft.espaciosSubheading},

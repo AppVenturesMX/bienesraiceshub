@@ -5,6 +5,7 @@ import { ADMIN_ICON_NAMES } from "@/lib/admin-icon-map"
 import {
   DEFAULT_DISCLAIMER_MXN,
   DEFAULT_DISCLAIMER_USD,
+  normalizeMapEmbedSrc,
   type PropertyDraft,
   type PropertyRawInput,
 } from "@/lib/admin-property-draft"
@@ -202,6 +203,10 @@ export async function POST(request: NextRequest) {
     ubicacionSubheading: parsed.ubicacionSubheading ?? "",
     ubicacionItems: Array.isArray(parsed.ubicacionItems) ? parsed.ubicacionItems : [],
     mapCaption: parsed.mapCaption ?? "Ubicación aproximada. La dirección exacta se comparte al agendar tu cita.",
+    // Viene de input.mapsLink (campo "Link de Google Maps" del paso 1 del
+    // panel de alta) — la IA no lo toca, solo se normaliza al patrón de
+    // embed. Ver normalizeMapEmbedSrc() en admin-property-draft.ts.
+    mapEmbedSrc: normalizeMapEmbedSrc(input.mapsLink ?? ""),
     espaciosHeading: parsed.espaciosHeading ?? "Espacios que enamoran",
     espaciosSubheading: parsed.espaciosSubheading ?? "",
     espaciosItems: Array.isArray(parsed.espaciosItems) ? parsed.espaciosItems : [],

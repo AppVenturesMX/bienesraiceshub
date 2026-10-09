@@ -340,6 +340,15 @@ export default function AdminPropiedadEditarPage() {
             })}
           </div>
         </div>
+        <label className="flex flex-col gap-1 text-sm">
+          Link de Google Maps
+          <input
+            className="rounded border border-neutral-300 px-3 py-2"
+            placeholder="Pega el link de Google Maps, el código <iframe> de 'Insertar un mapa', o la ubicación en texto"
+            value={draft.mapEmbedSrc}
+            onChange={(e) => updateField("mapEmbedSrc", e.target.value)}
+          />
+        </label>
 
         <label className="flex flex-col gap-1 text-sm">
           Leyenda del mapa

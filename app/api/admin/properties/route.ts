@@ -12,10 +12,12 @@ import { validateDraft } from "@/lib/admin-validate-draft"
 //
 // El panel ya sube fotos (ver app/api/admin/upload-photo/route.ts y el
 // botón "Subir fotos" en la página de alta) — si el draft trae
-// heroImage/gallery se usan esas. El panel todavía no sube un mapa
-// embebido (fuera de alcance de esta primera versión), así que la columna
-// NOT NULL map_embed_src se llena con cadena vacía; map_caption sí lo
-// llena la IA. Si Alex publica sin haber subido ninguna foto (por ejemplo
+// heroImage/gallery se usan esas. El link de Google Maps que Alex pega en
+// el paso 1 (input.mapsLink) ya se normaliza a draft.mapEmbedSrc en
+// app/api/admin/generate-property/route.ts (ver normalizeMapEmbedSrc en
+// lib/admin-property-draft.ts) — si Alex no pegó nada, la columna NOT NULL
+// map_embed_src se llena con cadena vacía, igual que antes. Si Alex publica
+// sin haber subido ninguna foto (por ejemplo
 // para completar los datos primero y las fotos después a mano), las
 // columnas NOT NULL hero_image/gallery se llenan con un placeholder
 // genérico (una tarjeta "Foto próximamente" en SVG inline, sin depender de
@@ -124,7 +126,7 @@ export async function POST(request: NextRequest) {
         ${draft.slug}, ${draft.status}, ${draft.locationBadge}, ${draft.title}, ${draft.description}, ${draft.price}, ${draft.currency},
         ${JSON.stringify(heroImage)}::jsonb, ${draft.metaTitle}, ${draft.metaDescription}, ${JSON.stringify(gallery)}::jsonb,
         ${draft.ubicacionHeading}, ${draft.ubicacionSubheading}, ${JSON.stringify(draft.ubicacionItems)}::jsonb,
-        ${""}, ${draft.mapCaption},
+        ${draft.mapEmbedSrc ?? ""}, ${draft.mapCaption},
         ${draft.espaciosHeading}, ${draft.espaciosSubheading}, ${JSON.stringify(draft.espaciosItems)}::jsonb,
         ${JSON.stringify(draft.formasDePago)}::jsonb,
         ${draft.contactoHeading}, ${draft.contactoSubheading}, ${draft.whatsappMessage}, ${draft.disclaimer}
@@ -152,6 +154,6 @@ export async function POST(request: NextRequest) {
     slug: draft.slug,
     note: usedPlaceholder
       ? "Propiedad publicada sin fotos — quedó con un marcador temporal. Puedes subir las fotos después desde /admin/propiedades/administrar."
-      : "Propiedad publicada con las fotos que subiste. El mapa embebido queda vacío por ahora — se agrega a mano en la base de datos si lo necesitas.",
+      : "Propiedad publicada con las fotos que subiste.",
   })
 }
