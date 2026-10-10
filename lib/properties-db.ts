@@ -23,6 +23,7 @@ type PropertyRow = {
   slug: string
   status: "disponible" | "apartada" | "vendida"
   location_badge: string
+  title_hook: string | null
   title: string
   description: string
   price: string | number
@@ -66,6 +67,7 @@ function mapRowToProperty(row: PropertyRow): Property {
     slug: row.slug,
     status: row.status,
     locationBadge: row.location_badge,
+    titleHook: row.title_hook ?? "",
     title: row.title,
     description: row.description,
     price: Number(row.price),
