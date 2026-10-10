@@ -36,7 +36,8 @@ Responde ÚNICAMENTE con un objeto JSON válido, sin texto antes ni después, si
 {
   "slug": "kebab-case, formato [referencia]-[colonia]-[ciudad]",
   "locationBadge": "Colonia · Ciudad",
-  "title": "un H1 vendedor de una sola oración, que combine el atractivo principal + la zona",
+  "titleHook": "frase corta de impacto opcional, SEPARADA del título (ej. '¡Invierte con visión!'). Déjala vacía ('') si no aplica un gancho claro — nunca la repitas dentro de 'title'.",
+  "title": "un H1 vendedor de una sola oración, que combine el atractivo principal + la zona (sin repetir el gancho de titleHook)",
   "description": "1-2 líneas que resuman el valor de la propiedad",
   "metaTitle": "SEO, incluye precio y ubicación",
   "metaDescription": "SEO, 1-2 líneas",
@@ -189,6 +190,7 @@ export async function POST(request: NextRequest) {
     slug: parsed.slug ?? "",
     status: input.estado,
     locationBadge: parsed.locationBadge ?? `${input.ubicacionColoniaSeccion} · ${input.ciudad}`,
+    titleHook: parsed.titleHook ?? "",
     title: parsed.title ?? "",
     description: parsed.description ?? "",
     price: input.precio,
