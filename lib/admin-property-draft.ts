@@ -121,25 +121,34 @@ function isGoogleMapsUrl(url: URL): boolean {
 }
 
 // Dado un link normal (largo) de Google Maps ya resuelto — del tipo que da
-// "Compartir → Copiar enlace" en desktop, con la forma
-// ".../maps/place/<Nombre>/@<lat>,<lng>,<zoom>z/..." o ".../maps/@<lat>,<lng>,<zoom>z" —
-// intenta sacar algo que Google SÍ reconozca como ubicación dentro del
-// patrón de embed "q=...". Si no encuentra nada reconocible regresa null
-// (y el llamador decide el fallback) en vez de meter la URL completa como
-// si fuera el nombre de un lugar, que es justo el bug que esto corrige:
-// Google Maps no "reconoce" una URL pegada como texto de búsqueda.
+// "Compartir → Copiar enlace" en desktop (".../maps/place/<Nombre>/@<lat>,<lng>,<zoom>z/...",
+// ".../maps/@<lat>,<lng>,<zoom>z") o el que regresa el redirect de un link
+// corto tipo maps.app.goo.gl del celular (".../maps/search/<lat>,+<lng>",
+// sin "@" y sin query "q") — intenta sacar algo que Google SÍ reconozca
+// como ubicación dentro del patrón de embed "q=...". Si no encuentra nada
+// reconocible regresa null (y el llamador decide el fallback) en vez de
+// meter la URL completa como si fuera el nombre de un lugar, que es justo
+// el bug que esto corrige: Google Maps no "reconoce" una URL pegada como
+// texto de búsqueda.
 function extractLocationFromResolvedUrl(url: URL): string | null {
-  // .../maps/.../@<lat>,<lng>,<zoom>z/...
-  const coordsMatch = url.pathname.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/)
-  if (coordsMatch) {
-    const [, lat, lng] = coordsMatch
-    return `${lat},${lng}`
-  }
-
   // .../maps/place/<Nombre+del+lugar>/...
   const placeMatch = url.pathname.match(/\/place\/([^/]+)/)
   if (placeMatch) {
     return decodeURIComponent(placeMatch[1].replace(/\+/g, " "))
+  }
+
+  // Coordenadas en cualquier parte de la ruta: ".../@<lat>,<lng>,<zoom>z/..."
+  // o ".../maps/search/<lat>,+<lng>" (este último es el que regresa el
+  // redirect REAL de los links cortos maps.app.goo.gl que da el botón
+  // "Compartir" del celular — no trae "@" ni query "q", solo las
+  // coordenadas en la ruta separadas por coma y un "+" o espacio
+  // codificado). Se busca el patrón en toda la ruta ya decodificada en vez
+  // de solo después de "@" para cubrir ambos casos con una sola regla.
+  const decodedPath = decodeURIComponent(url.pathname)
+  const coordsMatch = decodedPath.match(/(-?\d{1,3}\.\d+)[,+\s]+(-?\d{1,3}\.\d+)/)
+  if (coordsMatch) {
+    const [, lat, lng] = coordsMatch
+    return `${lat},${lng}`
   }
 
   // .../maps?q=<lo que sea> o .../maps/search/?q=<lo que sea>
