@@ -23,6 +23,7 @@ type PropertyRow = {
   slug: string
   status: "disponible" | "apartada" | "vendida"
   location_badge: string
+  title_hook: string | null
   title: string
   description: string
   price: string | number
@@ -51,6 +52,7 @@ function mapRowToDraft(row: PropertyRow): PropertyDraft {
     slug: row.slug,
     status: row.status,
     locationBadge: row.location_badge,
+    titleHook: row.title_hook ?? "",
     title: row.title,
     description: row.description,
     price: Number(row.price),
@@ -123,6 +125,10 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   }
 
   const sql = neon(process.env.POSTGRES_URL)
+  // Ver el mismo guard en app/api/admin/properties/route.ts — idempotente,
+  // se asegura de que la columna exista antes del UPDATE sin depender de
+  // una migración aparte.
+  await sql`ALTER TABLE properties ADD COLUMN IF NOT EXISTS title_hook TEXT NOT NULL DEFAULT ''`
   const heroImage = draft.heroImage ?? PLACEHOLDER_IMAGE
   const gallery = draft.gallery && draft.gallery.length > 0 ? draft.gallery : [PLACEHOLDER_IMAGE]
   const mapEmbedSrc = await normalizeMapEmbedSrc(draft.mapEmbedSrc ?? "")
@@ -132,6 +138,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       UPDATE properties SET
         status = ${draft.status},
         location_badge = ${draft.locationBadge},
+        title_hook = ${draft.titleHook ?? ""},
         title = ${draft.title},
         description = ${draft.description},
         price = ${draft.price},
