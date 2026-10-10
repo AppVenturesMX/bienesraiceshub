@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server"
 import { neon } from "@neondatabase/serverless"
 import { isAdminAuthenticated } from "@/lib/admin-auth"
 import type { PropertyDraft } from "@/lib/admin-property-draft"
-import { PLACEHOLDER_IMAGE } from "@/lib/admin-property-draft"
+import { PLACEHOLDER_IMAGE, normalizeMapEmbedSrc } from "@/lib/admin-property-draft"
 import { validateDraft } from "@/lib/admin-validate-draft"
 
 // Publicación de una propiedad nueva directo a Postgres (Vercel Storage /
@@ -15,7 +15,11 @@ import { validateDraft } from "@/lib/admin-validate-draft"
 // heroImage/gallery se usan esas. El link de Google Maps que Alex pega en
 // el paso 1 (input.mapsLink) ya se normaliza a draft.mapEmbedSrc en
 // app/api/admin/generate-property/route.ts (ver normalizeMapEmbedSrc en
-// lib/admin-property-draft.ts) — si Alex no pegó nada, la columna NOT NULL
+// lib/admin-property-draft.ts) — pero Alex también puede pegar o cambiar
+// el link directo en el campo del paso 2 (la revisión antes de publicar),
+// así que aquí se vuelve a normalizar justo antes de guardar, igual que ya
+// hace la ruta de edición ([slug]/route.ts), en vez de confiar en que ya
+// venga normalizado. Si Alex no pegó nada, la columna NOT NULL
 // map_embed_src se llena con cadena vacía, igual que antes. Si Alex publica
 // sin haber subido ninguna foto (por ejemplo
 // para completar los datos primero y las fotos después a mano), las
@@ -111,6 +115,7 @@ export async function POST(request: NextRequest) {
   const heroImage = draft.heroImage ?? PLACEHOLDER_IMAGE
   const gallery = draft.gallery && draft.gallery.length > 0 ? draft.gallery : [PLACEHOLDER_IMAGE]
   const usedPlaceholder = !draft.heroImage && (!draft.gallery || draft.gallery.length === 0)
+  const mapEmbedSrc = await normalizeMapEmbedSrc(draft.mapEmbedSrc ?? "")
 
   try {
     const rows = await sql`
@@ -126,7 +131,7 @@ export async function POST(request: NextRequest) {
         ${draft.slug}, ${draft.status}, ${draft.locationBadge}, ${draft.title}, ${draft.description}, ${draft.price}, ${draft.currency},
         ${JSON.stringify(heroImage)}::jsonb, ${draft.metaTitle}, ${draft.metaDescription}, ${JSON.stringify(gallery)}::jsonb,
         ${draft.ubicacionHeading}, ${draft.ubicacionSubheading}, ${JSON.stringify(draft.ubicacionItems)}::jsonb,
-        ${draft.mapEmbedSrc ?? ""}, ${draft.mapCaption},
+        ${mapEmbedSrc}, ${draft.mapCaption},
         ${draft.espaciosHeading}, ${draft.espaciosSubheading}, ${JSON.stringify(draft.espaciosItems)}::jsonb,
         ${JSON.stringify(draft.formasDePago)}::jsonb,
         ${draft.contactoHeading}, ${draft.contactoSubheading}, ${draft.whatsappMessage}, ${draft.disclaimer}

@@ -125,6 +125,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   const sql = neon(process.env.POSTGRES_URL)
   const heroImage = draft.heroImage ?? PLACEHOLDER_IMAGE
   const gallery = draft.gallery && draft.gallery.length > 0 ? draft.gallery : [PLACEHOLDER_IMAGE]
+  const mapEmbedSrc = await normalizeMapEmbedSrc(draft.mapEmbedSrc ?? "")
 
   try {
     const rows = await sql`
@@ -142,7 +143,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
         ubicacion_heading = ${draft.ubicacionHeading},
         ubicacion_subheading = ${draft.ubicacionSubheading},
         ubicacion_items = ${JSON.stringify(draft.ubicacionItems)}::jsonb,
-        map_embed_src = ${normalizeMapEmbedSrc(draft.mapEmbedSrc ?? "")},
+        map_embed_src = ${mapEmbedSrc},
         map_caption = ${draft.mapCaption},
         espacios_heading = ${draft.espaciosHeading},
         espacios_subheading = ${draft.espaciosSubheading},
