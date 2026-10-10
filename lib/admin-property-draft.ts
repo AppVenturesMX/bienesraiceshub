@@ -57,6 +57,13 @@ export type PropertyDraft = {
   slug: string
   status: PropertyStatus
   locationBadge: string
+  // Frase corta de impacto ("¡Invierte con Visión!"), opcional, que se
+  // muestra separada y en su propio estilo arriba del título principal en
+  // el hero de la propiedad (ver components/property-hero.tsx) — antes
+  // Alex tenía que meter todo en un solo campo `title`, sin forma de
+  // distinguir visualmente el "gancho" del resto de la oración. Vacía por
+  // default: si no se llena, el hero se ve exactamente igual que antes.
+  titleHook?: string
   title: string
   description: string
   price: number
