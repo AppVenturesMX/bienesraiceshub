@@ -23,6 +23,11 @@ export type Property = {
 
   // Hero
   locationBadge: string
+  // Frase corta de impacto, opcional, separada del título principal (ver
+  // lib/admin-property-draft.ts). Las 7 propiedades históricas de este
+  // arreglo no la traen — queda undefined y el hero se ve igual que
+  // siempre.
+  titleHook?: string
   title: string
   description: string
   price: number
