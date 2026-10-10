@@ -57,7 +57,7 @@ export function PropertyHero({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.05 }}
-              className="text-balance text-2xl font-extrabold leading-tight tracking-tight text-emerald-400 sm:text-3xl lg:text-4xl"
+              className="text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-emerald-400 sm:text-5xl lg:text-6xl"
             >
               {property.titleHook}
             </motion.p>
