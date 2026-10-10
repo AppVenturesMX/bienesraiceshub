@@ -20,7 +20,12 @@ export function PropertyCard({ property }: { property: Property }) {
           <MapPin className="h-3.5 w-3.5" />
           {property.locationBadge}
         </span>
-        <h3 className="mt-3 text-xl font-bold text-slate-800">{property.title}</h3>
+        {property.titleHook ? (
+          <p className="mt-3 text-2xl font-extrabold leading-tight text-emerald-600">{property.titleHook}</p>
+        ) : null}
+        <h3 className={`text-xl font-bold text-slate-800 ${property.titleHook ? "mt-1" : "mt-3"}`}>
+          {property.title}
+        </h3>
         <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{property.description}</p>
         <div className="mt-4 flex items-baseline gap-1.5">
           <span className="text-2xl font-extrabold text-slate-900">
