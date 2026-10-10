@@ -15,6 +15,10 @@ import type { GaleriaImage } from "@/lib/properties"
 // servidor→cliente de Next.js.
 type PropertyHeroData = {
   locationBadge: string
+  // Frase corta de impacto, opcional (ver lib/properties.ts) — se muestra
+  // en su propio estilo arriba del título cuando viene llena; si no, el
+  // hero se ve exactamente como antes.
+  titleHook?: string
   title: string
   description: string
   price: number
@@ -47,6 +51,17 @@ export function PropertyHero({
             <MapPin className="h-4 w-4" />
             {property.locationBadge}
           </motion.span>
+
+          {property.titleHook ? (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="text-balance text-2xl font-extrabold leading-tight tracking-tight text-emerald-400 sm:text-3xl lg:text-4xl"
+            >
+              {property.titleHook}
+            </motion.p>
+          ) : null}
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }}

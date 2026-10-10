@@ -60,6 +60,7 @@ export default async function PropertyPage({ params }: PageProps) {
         <PropertyHero
           property={{
             locationBadge: property.locationBadge,
+            titleHook: property.titleHook,
             title: property.title,
             description: property.description,
             price: property.price,

@@ -107,6 +107,13 @@ export async function POST(request: NextRequest) {
 
   const sql = neon(process.env.POSTGRES_URL)
 
+  // Columna agregada después de que la tabla ya existía en producción (ver
+  // panel-alta-propiedades-diseno.md) — no hay herramienta de migraciones
+  // en este proyecto, así que cada ruta que la usa se asegura de que
+  // exista antes de escribir. Es idempotente y casi instantánea cuando la
+  // columna ya está, así que no hay costo en dejarla aquí en cada POST.
+  await sql`ALTER TABLE properties ADD COLUMN IF NOT EXISTS title_hook TEXT NOT NULL DEFAULT ''`
+
   // Si Alex ya subió fotos con el nuevo botón de carga (ver
   // app/api/admin/upload-photo/route.ts), se usan esas. Si no, se sigue
   // usando el marcador genérico, igual que antes de que existiera la carga
@@ -120,7 +127,7 @@ export async function POST(request: NextRequest) {
   try {
     const rows = await sql`
       INSERT INTO properties (
-        slug, status, location_badge, title, description, price, currency,
+        slug, status, location_badge, title_hook, title, description, price, currency,
         hero_image, meta_title, meta_description, gallery,
         ubicacion_heading, ubicacion_subheading, ubicacion_items,
         map_embed_src, map_caption,
@@ -128,7 +135,7 @@ export async function POST(request: NextRequest) {
         formas_de_pago,
         contacto_heading, contacto_subheading, whatsapp_message, disclaimer
       ) VALUES (
-        ${draft.slug}, ${draft.status}, ${draft.locationBadge}, ${draft.title}, ${draft.description}, ${draft.price}, ${draft.currency},
+        ${draft.slug}, ${draft.status}, ${draft.locationBadge}, ${draft.titleHook ?? ""}, ${draft.title}, ${draft.description}, ${draft.price}, ${draft.currency},
         ${JSON.stringify(heroImage)}::jsonb, ${draft.metaTitle}, ${draft.metaDescription}, ${JSON.stringify(gallery)}::jsonb,
         ${draft.ubicacionHeading}, ${draft.ubicacionSubheading}, ${JSON.stringify(draft.ubicacionItems)}::jsonb,
         ${mapEmbedSrc}, ${draft.mapCaption},

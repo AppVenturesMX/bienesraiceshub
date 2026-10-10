@@ -236,6 +236,19 @@ export default function AdminPropiedadEditarPage() {
         </label>
 
         <label className="flex flex-col gap-1 text-sm">
+          Frase de impacto (opcional)
+          <input
+            className="rounded border border-neutral-300 px-3 py-2"
+            placeholder="Ej. ¡Invierte con Visión!"
+            value={draft.titleHook ?? ""}
+            onChange={(e) => updateField("titleHook", e.target.value)}
+          />
+          <span className="text-xs text-neutral-500">
+            Se muestra separada y en verde, arriba del título. Déjala vacía si no quieres una.
+          </span>
+        </label>
+
+        <label className="flex flex-col gap-1 text-sm">
           Título
           <textarea
             className="min-h-16 rounded border border-neutral-300 px-3 py-2"
