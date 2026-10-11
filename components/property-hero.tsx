@@ -40,7 +40,7 @@ export function PropertyHero({
     <section className="relative isolate overflow-hidden bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950">
       <HubMark className="pointer-events-none absolute -bottom-10 -left-10 h-72 w-72 text-emerald-400 opacity-[0.16] sm:h-[24rem] sm:w-[24rem]" />
 
-      <div className="relative mx-auto grid min-h-[85vh] max-w-6xl items-center gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:pb-20 lg:pt-32">
+      <div className="relative mx-auto grid min-h-[85vh] max-w-6xl items-start gap-10 px-4 pb-16 pt-28 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:pb-20 lg:pt-32">
         <div className="flex flex-col gap-6">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
