@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { HubHero } from "@/components/hub-hero"
 import { HubTrustBar } from "@/components/hub-trust-bar"
@@ -8,16 +9,65 @@ import { PropertyCard } from "@/components/property-card"
 import { Reveal } from "@/components/reveal"
 import { SiteFooter } from "@/components/site-footer"
 import { FloatingButtons } from "@/components/floating-buttons"
-import { GENERAL_WHATSAPP_URL } from "@/lib/site"
+import { GENERAL_WHATSAPP_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL, WHATSAPP_NUMBER } from "@/lib/site"
 import { getAllProperties, getHeroMosaicImages } from "@/lib/properties-db"
 
 export const dynamic = "force-dynamic"
 
+// El home heredaba su metadata del layout sin imagen de Open Graph (og:image
+// ausente, confirmado en vivo — ver claude/estrategia-seo-google-oct-2026.md
+// sección 3). Se usa la primera foto del mosaico del hero, que ya se arma
+// aquí mismo con getHeroMosaicImages, en vez de depender de un asset estático
+// nuevo.
+export async function generateMetadata(): Promise<Metadata> {
+  const properties = await getAllProperties()
+  const [firstMosaicImage] = getHeroMosaicImages(properties, 1)
+
+  return {
+    alternates: {
+      canonical: SITE_URL,
+    },
+    openGraph: firstMosaicImage
+      ? {
+          title: SITE_NAME,
+          description: SITE_DESCRIPTION,
+          type: "website",
+          locale: "es_MX",
+          siteName: SITE_NAME,
+          url: SITE_URL,
+          images: [{ url: firstMosaicImage.src, alt: firstMosaicImage.alt }],
+        }
+      : undefined,
+  }
+}
+
 export default async function Page() {
   const properties = await getAllProperties()
   const mosaic = getHeroMosaicImages(properties, 8)
+
+  // Datos estructurados (schema.org/JSON-LD) a nivel de negocio — ayuda a
+  // que Google y los motores de IA identifiquen a Bienes Raíces Hub como
+  // una agencia inmobiliaria con zona de servicio en Baja California.
+  // Ver claude/estrategia-seo-google-oct-2026.md, secciones 1 y 6.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: "Baja California, México",
+    },
+    telephone: `+${WHATSAPP_NUMBER}`,
+  }
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar mode="hub" />
       <main>
         <HubHero mosaic={mosaic} />
