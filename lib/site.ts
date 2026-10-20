@@ -9,6 +9,13 @@ export const SITE_TAGLINE =
 export const SITE_DESCRIPTION =
   "Directorio de propiedades en venta en Baja California, cada una con precalificación de crédito sin costo vía preaprueba.com."
 
+// URL canónica del Hub (dominio propio, versión www — ver
+// claude/bienes-raices-hub-proceso-alta-propiedades.md sección 0: la
+// raíz bienesraiceshub.com redirige 308 a esta). Usada por metadataBase,
+// el sitemap, robots.txt y los datos estructurados (JSON-LD) — ver
+// claude/estrategia-seo-google-oct-2026.md.
+export const SITE_URL = "https://www.bienesraiceshub.com"
+
 export const PREAPRUEBA_URL = "https://preaprueba.com"
 
 // Número de WhatsApp de contacto general del asesor (usado como fallback
