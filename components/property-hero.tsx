@@ -126,7 +126,7 @@ export function PropertyHero({
               alt={property.heroImage.alt}
               className="aspect-[4/3] w-full object-cover"
             />
-            <PhotoWatermark />
+            <PhotoWatermark variant="full" />
           </div>
         </motion.div>
       </div>
