@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import * as React from "react"
 
 type PropertyListItem = {
   slug: string
@@ -77,6 +78,15 @@ export default function AdminPropiedadesAdministrarPage() {
 
   return (
     <main className="mx-auto max-w-5xl px-6 py-10">
+      {React.createElement(
+              Link,
+      {
+                  href: "/",
+                  className:
+                                "mb-4 inline-flex items-center gap-1 text-sm font-medium text-neutral-600 hover:text-neutral-900",
+      },
+              "← Volver al portal"
+            )}
       <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="mb-2 text-2xl font-semibold">Administrar propiedades</h1>
