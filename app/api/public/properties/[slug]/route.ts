@@ -36,7 +36,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
     return NextResponse.json(
       { error: `No existe ninguna propiedad con el slug "${slug}".` },
       { status: 404, headers: CORS_HEADERS },
-    }
+        )
   }
 
   const publicProperty = {
